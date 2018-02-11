@@ -1,5 +1,6 @@
 <?php
 /**IH4-1
+ * mod Image Handler 4.3.3
  * ih_manager.php
  * manager module for IH4 admin interface
  *
@@ -14,7 +15,7 @@
     $current_category_id = (isset($_GET['current_category_id']) ? $_GET['current_category_id'] : $current_category_id);
     $new_product_query = $db->Execute("select ptc.* from " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc  left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on ptc.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' where ptc.categories_id='" . $current_category_id . "' order by pd.products_name");
     $products_filter = $new_product_query->fields['products_id'];
-    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'page=manager&amp;products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id));
+    zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id));
   }
   
   // set categories and products if not set
@@ -22,7 +23,7 @@
     $new_product_query = $db->Execute("select ptc.* from " . TABLE_PRODUCTS_TO_CATEGORIES . " ptc  left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on ptc.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' where ptc.categories_id='" . $current_category_id . "' order by pd.products_name");
     $products_filter = $new_product_query->fields['products_id'];
     if ($products_filter != '') {
-      zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'page=manager&amp;products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id));
+      zen_redirect(zen_href_link(FILENAME_IMAGE_HANDLER, 'ih_page=manager&amp;products_filter=' . $products_filter . '&amp;current_category_id=' . $current_category_id));
     }
   } else {
     if ($products_filter == '' and $current_categories_id == '') {
@@ -115,7 +116,7 @@
       } else { 
         // get directory list
         $array = array();
-        find_additional_images($array, DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'], 
+        $ih_admin->findAdditionalImages($array, DIR_FS_CATALOG . DIR_WS_IMAGES . $data['imgBaseDir'], 
           $data['imgExtension'], $data['imgBase'] );
         echo "<!--  point 1".$data['imgExtension']."-->";
         $c = sizeof( $array );
