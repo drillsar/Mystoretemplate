@@ -414,15 +414,13 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 SELECT @cid:=configuration_group_id
 FROM configuration_group
-WHERE configuration_group_title= 'Wish list';
+WHERE configuration_group_title= 'Wishlist Configuration';
 DELETE FROM configuration WHERE configuration_group_id = @cid;
 DELETE FROM configuration_group WHERE configuration_group_id = @cid;
 
-INSERT INTO configuration_group(configuration_group_title, configuration_group_description, sort_order, visible) VALUES ('Wish list', 'Settings for Wish list', '1', '1');
+INSERT INTO configuration_group(configuration_group_title, configuration_group_description, sort_order, visible) VALUES ('Wishlist Configuration', 'Settings for Wish list', '1', '1');
 
-
-SET @cid=last_insert_id();
-UPDATE configuration_group SET sort_order = @cid WHERE configuration_group_id = @cid;
+UPDATE configuration_group SET sort_order = last_insert_id() WHERE configuration_group_id = last_insert_id();
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist Module Switch', 'UN_DB_MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist sidebox header link', 'UN_DB_SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
@@ -437,6 +435,8 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 DELETE FROM admin_pages WHERE page_key='configWishlist';
 INSERT INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISH_LIST','FILENAME_CONFIGURATION',CONCAT('gID=',@cid), 'configuration', 'Y', @cid);
+# Register the tools page for Admin Access Control
+INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'UN_BOX_WISHLISTS', 'UN_FILENAME_WISHLISTS', '', 'tools', 'Y', @configuration_group_id);  
 
 
 DROP TABLE IF EXISTS un_wishlists;
