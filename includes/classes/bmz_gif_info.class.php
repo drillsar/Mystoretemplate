@@ -23,7 +23,7 @@
        var $m_backgroundIndex;
       
       
-       function gifinfo($filename)
+       function __construct($filename)
        {
 
            $fp                        = fopen($filename,"rb");
