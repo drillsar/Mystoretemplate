@@ -7,6 +7,7 @@
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: Author: zcwilt Fri Apr 15  Modified in v1.5.5 $
+ * * MODIFIED FOR PO BOX BAN V1.5 for Zen Cart 1.5.5f
  */
 // This should be first line of the script:
 $zco_notifier->notify('NOTIFY_MODULE_START_CREATE_ACCOUNT');
@@ -178,6 +179,28 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')) {
     $error = true;
     $messageStack->add('create_account', ENTRY_STREET_ADDRESS_ERROR);
   }
+
+// BEGIN PO Box Ban 1/1
+	if ( preg_match('/PO BOX/si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    } else if ( preg_match('/POBOX/si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    } else if ( preg_match('/BOX/si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    } else if ( preg_match('/P\.O\./si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    } else if ( preg_match('/P\.O/si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    } else if ( preg_match('/PO\./si', $street_address) ) {
+      $error = true;
+      $messageStack->add('create_account', PO_BOX_ERROR);
+    }
+// END PO Box Ban 1/1
 
   if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
     $error = true;
