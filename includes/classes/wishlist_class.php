@@ -127,7 +127,7 @@ class un_wishlist extends un_productlist {
      * @param integer $iPollId [optional] poll id
      * @access public
 	/*----------------------------------------------------------*/
-	function un_wishlist($iCustomerId=NULL) {
+	function __construct($iCustomerId=NULL) {
     	global $db, $messageStack;
         
         // implement db object

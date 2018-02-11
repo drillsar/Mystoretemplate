@@ -81,7 +81,7 @@ class un_productlist {
      *
      * @access public
 	/*----------------------------------------------------------*/
-	function un_productlist() {
+	function __construct() {
     	global $db, $messageStack;
         
         // implement db object
@@ -211,7 +211,7 @@ class un_productlist {
 		}
 	
 		// Define order based on posted html form
-		if ( (!isset($_GET['sort'])) || (!ereg('[1-9][ad]', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($define_list)) ) {
+		if ( (!isset($_GET['sort'])) || (!preg_match('/[1-9][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($define_list)) ) {
 			$_GET['sort'] = $default['column_order'] . 'a';
 			$sql_order .= ' order by ' . $default['field'];
 		} else {
