@@ -408,6 +408,64 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Languages in Header?', 'HEADER_LANGUAGES_DISPLAY', 'True', 'Display the Languages flags/links in Header?', 19, 170, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');
 
+#
+# wishlist
+#
+
+SELECT @cid:=configuration_group_id
+FROM configuration_group
+WHERE configuration_group_title= 'Wish list';
+DELETE FROM configuration WHERE configuration_group_id = @cid;
+DELETE FROM configuration_group WHERE configuration_group_id = @cid;
+
+INSERT INTO configuration_group(configuration_group_title, configuration_group_description, sort_order, visible) VALUES ('Wish list', 'Settings for Wish list', '1', '1');
+
+
+SET @cid=last_insert_id();
+UPDATE configuration_group SET sort_order = @cid WHERE configuration_group_id = @cid;
+
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist Module Switch', 'UN_DB_MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist sidebox header link', 'UN_DB_SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist allow multiple lists', 'UN_DB_ALLOW_MULTIPLE_WISHLISTS', 'true', 'Set this option true or false to allow for more than 1 wishlist', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist display category filter', 'UN_DB_DISPLAY_CATEGORY_FILTER', 'true', 'Set this option true or false to enable a category filter', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist default name', 'DEFAULT_WISHLIST_NAME', 'Default', 'Enter the name you want to be assigned to the initial wishlist.', @cid, NULL, now(), now(), NULL, NULL);
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist show list after product addition', 'DISPLAY_WISHLIST', 'true', 'Set this option true or false to show the wishlist after a product was added to the wishlist', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist display max items in extended view', 'UN_MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @cid, NULL, now(), now(), NULL, NULL);
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist display max items in compact view', 'UN_MAX_DISPLAY_COMPACT', '20', 'Enter the maximum amount of products you want to show in extended view.<br />default = 20', @cid, NULL, now(), now(), NULL, NULL);
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist default view Switch', 'UN_DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'compact\', \'extended\'),');
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist allow multiple products to cart', 'UN_DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', @cid, NULL, now(), now(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+
+DELETE FROM admin_pages WHERE page_key='configWishlist';
+INSERT INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISH_LIST','FILENAME_CONFIGURATION',CONCAT('gID=',@cid), 'configuration', 'Y', @cid);
+
+
+DROP TABLE IF EXISTS un_wishlists;
+CREATE TABLE IF NOT EXISTS un_wishlists (
+  id int(11) NOT NULL auto_increment,
+  customers_id int(11) NOT NULL default '0',
+  created datetime NOT NULL default '0001-01-01 00:00:00',
+  modified datetime NOT NULL default '0001-01-01 00:00:00',
+  name varchar(255) default NULL,
+  comment varchar(255) default NULL,
+  default_status tinyint(1) NOT NULL default '0',
+  public_status tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (id)
+);
+INSERT INTO un_wishlists VALUES (1, 0, now(), now(), 'donotuse', 'donotuse', 0, 0);
+
+
+DROP TABLE IF EXISTS un_products_to_wishlists;
+CREATE TABLE IF NOT EXISTS un_products_to_wishlists (
+  products_id int(11) NOT NULL default '0',
+  un_wishlists_id int(11) NOT NULL default '0',
+  created datetime NOT NULL default '0001-01-01 00:00:00',
+  modified datetime NOT NULL default '0001-01-01 00:00:00',
+  quantity int(2) NOT NULL default '1',
+  priority int(1) NOT NULL default '2',
+  comment varchar(255) default NULL,
+  attributes varchar(255) default NULL,
+  PRIMARY KEY  (products_id,un_wishlists_id)
+);
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Currencies in Header?', 'HEADER_CURRENCIES_DISPLAY', 'True', 'Display the Currencies symbols/links in Header?', 19, 171, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');
 
