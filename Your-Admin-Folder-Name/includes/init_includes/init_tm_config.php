@@ -24,7 +24,7 @@ $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
   testimonials_country VARCHAR( 255 ) NULL DEFAULT NULL,
   testimonials_show_email char(1) default '0',
   status int(1) NOT NULL default '0',
-  date_added datetime NOT NULL default '0001-01-01 00:00:00',
+  date_added datetime NOT NULL default '0000-00-00 00:00:00',
   last_update datetime NULL default NULL,
   PRIMARY KEY  (testimonials_id)
 )";
