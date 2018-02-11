@@ -412,32 +412,34 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 # wishlist
 #
 
-SELECT @cid:=configuration_group_id
-FROM configuration_group
-WHERE configuration_group_title= 'Wishlist Configuration';
-DELETE FROM configuration WHERE configuration_group_id = @cid;
-DELETE FROM configuration_group WHERE configuration_group_id = @cid;
+SET @configuration_group_id=0;
+SELECT (@configuration_group_id:=configuration_group_id) 
+FROM configuration_group 
+WHERE configuration_group_title = 'Wishlist Configuration' 
+LIMIT 1;
+DELETE FROM configuration WHERE configuration_group_id = @configuration_group_id AND @configuration_group_id != 0;
+DELETE FROM configuration_group WHERE configuration_group_id = @configuration_group_id AND @configuration_group_id != 0;
 
-INSERT INTO configuration_group(configuration_group_title, configuration_group_description, sort_order, visible) VALUES ('Wishlist Configuration', 'Settings for Wish list', '1', '1');
+INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order, visible) VALUES (NULL, 'Wishlist Configuration', 'Set Wishlist Options', '1', '1');
+SET @configuration_group_id=last_insert_id();
+UPDATE configuration_group SET sort_order = @configuration_group_id WHERE configuration_group_id = @configuration_group_id;
 
-UPDATE configuration_group SET sort_order = last_insert_id() WHERE configuration_group_id = last_insert_id();
+INSERT INTO configuration VALUES (NULL, 'Wishlist Module Switch', 'UN_DB_MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @configuration_group_id, 10, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist sidebox header link', 'UN_DB_SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @configuration_group_id, 11, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple lists', 'UN_DB_ALLOW_MULTIPLE_WISHLISTS', 'true', 'Set this option true or false to allow for more than 1 wishlist', @configuration_group_id, 12, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist display category filter', 'UN_DB_DISPLAY_CATEGORY_FILTER', 'false', 'Set this option true or false to enable a category filter', @configuration_group_id, 13, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist default name', 'DEFAULT_WISHLIST_NAME', 'Default', 'Enter the name you want to be assigned to the initial wishlist.', @configuration_group_id, 14, now(), now(), NULL, NULL);
+INSERT INTO configuration VALUES (NULL, 'Wishlist show list after product addition', 'DISPLAY_WISHLIST', 'false', 'Set this option true or false to show the wishlist after a product was added to the wishlist', @configuration_group_id, 15, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in extended view', 'UN_MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @configuration_group_id, 16, now(), now(), NULL, NULL);
+INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in compact view', 'UN_MAX_DISPLAY_COMPACT', '20', 'Enter the maximum amount of products you want to show in extended view.<br />default = 20', @configuration_group_id, 17, now(), now(), NULL, NULL);
+INSERT INTO configuration VALUES (NULL, 'Wishlist default view Switch', 'UN_DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', @configuration_group_id, 18, now(), now(), NULL, "zen_cfg_select_option(array('compact', 'extended'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple products to cart', 'UN_DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', @configuration_group_id, 19, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
 
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES 
-('Wishlist Module Switch', 'UN_DB_MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @cid, 1, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
-('Wishlist sidebox header link', 'UN_DB_SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @cid, 2, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
-('Wishlist allow multiple lists', 'UN_DB_ALLOW_MULTIPLE_WISHLISTS', 'true', 'Set this option true or false to allow for more than 1 wishlist', @cid, 3, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
-('Wishlist display category filter', 'UN_DB_DISPLAY_CATEGORY_FILTER', 'true', 'Set this option true or false to enable a category filter', @cid, 4, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
-('Wishlist default name', 'DEFAULT_WISHLIST_NAME', 'Default', 'Enter the name you want to be assigned to the initial wishlist.', @cid, 5, NOW(), NOW(), NULL);
-('Wishlist show list after product addition', 'DISPLAY_WISHLIST', 'true', 'Set this option true or false to show the wishlist after a product was added to the wishlist', @cid, 6, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
-('Wishlist display max items in extended view', 'UN_MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @cid, 7, NOW(), NOW(), NULL, NULL);
-('Wishlist display max items in compact view', 'UN_MAX_DISPLAY_COMPACT', '20', 'Enter the maximum amount of products you want to show in extended view.<br />default = 20', @cid, 8, NOW(), NOW(), NULL, NULL);
-('Wishlist default view Switch', 'UN_DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', @cid, 9, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'compact\', \'extended\'),');
-('Wishlist allow multiple products to cart', 'UN_DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', @cid, 10, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),');
+# Register the configuration page for Admin Access Control
+INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISHLIST','FILENAME_CONFIGURATION',CONCAT('gID=',@configuration_group_id),'configuration','Y',@configuration_group_id);
 
-DELETE FROM admin_pages WHERE page_key='configWishlist';
-INSERT INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISHLIST','FILENAME_CONFIGURATION',CONCAT('gID=',@cid), 'configuration', 'Y', @cid);
-# Register the tools page for Admin Access Control
-INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'UN_BOX_WISHLISTS', 'UN_FILENAME_WISHLISTS', '', 'tools', 'Y', @configuration_group_id);  
+# Register the extras page for Admin Access Control
+INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'UN_BOX_WISHLISTS', 'UN_FILENAME_WISHLISTS', '', 'extras', 'Y', @configuration_group_id);  
 
 
 DROP TABLE IF EXISTS un_wishlists;
