@@ -1,13 +1,13 @@
 <?php 
 // -----
 // Part of the "Image Handler" plugin, v5.0.0 and later, by Cindy Merkin a.k.a. lat9 (cindy@vinosdefrutastropicales.com)
-// Copyright (c) 2017 Vinos de Frutas Tropicales
+// Copyright (c) 2017-2018 Vinos de Frutas Tropicales
 //
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('IH_CURRENT_VERSION', '5.0.0');
+define('IH_CURRENT_VERSION', '5.0.1-beta5');
 
 // -----
 // Wait until an admin is logged in before seeing if any initialization steps need to be performed.
@@ -30,7 +30,10 @@ if (isset($_SESSION['admin_id'])) {
     // ----
     // Perform the plugin's initial install, if not currently present.
     //
-    if (!defined('IH_VERSION')) {
+    // Note that since the IH-4 uninstall procedure fails to remove the 'IH_VERSION' definition, we're
+    // using the 'IH_RESIZE' value as a change-trigger rather than 'IH_VERSION'!
+    //
+    if (!defined('IH_RESIZE')) {
         // -----
         // Create the "base" configuration items for Image Handler's initial installation.
         //
@@ -195,8 +198,12 @@ if (isset($_SESSION['admin_id'])) {
                 }
                 $set_function = "'zen_cfg_select_option(array(" . substr($value_string, 0, -1) . "),'";
             }
+            // -----
+            // Using 'INSERT IGNORE' here, just in case some other configuration values were
+            // previously set.
+            //
             $db->Execute(
-                "INSERT INTO " . TABLE_CONFIGURATION . "
+                "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                     (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
                  VALUES
                     ('$config_title', '$config_key', '$config_default', '$config_descr', $cgi, $sort_order, now(), NULL, $set_function)"
@@ -204,15 +211,16 @@ if (isset($_SESSION['admin_id'])) {
         }
         
         // -----
-        // Create a configuration item that will display the plugin's current version.
+        // Create a configuration item that will display the plugin's current version.  Using 'INSERT IGNORE'
+        // here, just in case this configuration value already exists.
         //
         $db->Execute(
-            "INSERT INTO " . TABLE_CONFIGURATION . "
+            "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function)
              VALUES
                 ('IH version', 'IH_VERSION', '" . IH_CURRENT_VERSION . "', 'Displays the currently-installed version of <em>Image Handler</em>.', $cgi, 1000, now(), NULL, 'trim(')"
         );
-        define ('IH_VERSION', '0.0.0');
+        define('IH_VERSION', '0.0.0');
         
         // -----
         // Remove "legacy" Image Handler configuration items.
@@ -233,7 +241,9 @@ if (isset($_SESSION['admin_id'])) {
         // -----
         // Register the Image Handler tool within the Zen Cart admin menus.
         //
-        zen_register_admin_page('configImageHandler4', 'BOX_TOOLS_IMAGE_HANDLER', 'FILENAME_IMAGE_HANDLER', '', 'tools', 'Y', 14);
+        if (!zen_page_key_exists('configImageHandler4')) {
+            zen_register_admin_page('configImageHandler4', 'BOX_TOOLS_IMAGE_HANDLER', 'FILENAME_IMAGE_HANDLER', '', 'tools', 'Y', 14);
+        }
     }
 
     // -----
@@ -260,6 +270,12 @@ if (isset($_SESSION['admin_id'])) {
                      VALUES 
                         ( 'Cache File-naming Convention', 'IH_CACHE_NAMING', '$default', 'Choose the method that <em>Image Handler</em> uses to name the resized images in the <code>bmz_cache</code> directory.<br /><br />The <em>Hashed</em> method was used by Image Handler versions prior to 4.3.4 and uses an &quot;MD5&quot; hash to produce the filenames.  It can be &quot;difficult&quot; to visually identify the original file using this method.  If you are upgrading Image Handler from a version prior to 4.3.4 <em>and</em> you have hard-coded links in product (or other) definitions to those images, <b>do not change</b> this setting from <em>Hashed</em>.<br /><br />Image Handler v4.3.4 (unreleased) introduced the concept of a <em>Readable</em> name for those resized images.  This is a good choice for new installations of <em>IH</em> or for upgraded installations that do not have hard-coded image links.', $cgi, 1006, now(), NULL, 'zen_cfg_select_option(array(\'Hashed\', \'Readable\'),')"
                 );
+            }
+        }
+        
+        if (version_compare(IH_VERSION, '5.0.1', '<')) {
+            if (!zen_page_key_exists('toolsImageHandlerViewConfig')) {
+                zen_register_admin_page('toolsImageHandlerViewConfig', 'BOX_TOOLS_IMAGE_HANDLER_VIEW_CONFIG', 'FILENAME_IMAGE_HANDLER_VIEW_CONFIG', '', 'tools', 'N', 99);
             }
         }
         

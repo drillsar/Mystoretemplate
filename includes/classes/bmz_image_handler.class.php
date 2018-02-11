@@ -11,6 +11,18 @@
  * Modified by DerManoMann 2010-05-31 23:40:21
  * Last Modified by lat9: 2017-07-17, correcting class constructor name, applying PSR-2 formatting.
  */
+ 
+if (!defined('IH_DEBUG_ADMIN')) {
+    define('IH_DEBUG_ADMIN', 'true');
+}
+if (!defined('IH_DEBUG_STOREFRONT')) {
+    define('IH_DEBUG_STOREFRONT', 'false');
+}
+
+if (!defined('IS_ADMIN_FLAG')) {
+    exit('Illegal access');
+}
+
 class ih_image
 {
     /**
@@ -49,40 +61,70 @@ class ih_image
         $this->width = $width;
         $this->height = $height;
         $this->zoom = array();
-
+        
+        if (IS_ADMIN_FLAG === true) {
+            $this->debug = (IH_DEBUG_ADMIN == 'true');
+            $this->debugLogFile = DIR_FS_LOGS . '/ih_debug_admin.log';
+        } else {
+            $this->debug = (IH_DEBUG_STOREFRONT == 'true');
+            $this->debugLogFile = DIR_FS_LOGS . '/ih_debug.log';
+        }
+        
         $this->determine_image_sizetype();
     
         if ((($this->sizetype == 'large') || ($this->sizetype == 'medium')) && $this->file_not_found()) {
-            // large or medium image specified but not found. strip superflous suffix.
+            // large or medium image specified but not found. strip superfluous suffix.
             // now we can actually access the default image referenced in the database.
             $this->src = $this->strip_sizetype_suffix($this->src);
         }
+
         $this->filename = $ihConf['dir']['docroot'] . $this->src;
         $this->extension = substr($this->src, strrpos($this->src, '.'));
 
         list($newwidth, $newheight, $resize) = $this->calculate_size($this->width, $this->height);
         // set canvas dimensions
-        if (($newwidth > 0) && ($newheight > 0)) {
+        if ($newwidth > 0 && $newheight > 0) {
             $this->canvas['width'] = $newwidth;
             $this->canvas['height'] = $newheight;
         }
 
         // initialize overlays (watermark, zoom overlay)
         $this->initialize_overlays($this->sizetype);
-    } # end class constructor
+    } // end class constructor
 
     public function file_not_found() 
     {
         global $ihConf;
-        // try to find file by using different file extensions if initial
-        // source doesn't succeed
+
+        // -----
+        // If the file is found ... it's not "not-found"!
+        //
         if (is_file($ihConf['dir']['docroot'] . $this->src)) {
             return false;
+            
+        // -----
+        // Otherwise, see if the file exists with a capitalized version of the file-extension.
+        //
         } else {
-            // do a quick search for files with common extensions
-            $extensions = array('.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG', '.gif', '.GIF');
-            $base = substr($this->src, 0, strrpos($this->src, '.'));
-            for ($i=0; $i<count($extensions); $i++) {
+            $pathinfo = pathinfo($this->src);
+            $base = $pathinfo['filename'];
+            $baseext = strtolower($pathinfo['extension']);
+            switch ($baseext) {
+                case 'jpg':
+                    $extensions = array('.jpg', '.JPG', '.jpeg', '.JPEG');
+                    break;
+                case 'gif':
+                    $extensions = array('.gif', '.GIF');
+                    break;
+                case 'png':
+                    $extensions = array('.png', '.PNG');
+                    break;
+                default:
+                    $extensions = array();
+                    break;
+            }
+
+            for ($i = 0, $n = count($extensions); $i < $n; $i++) {
                 if (is_file($ihConf['dir']['docroot'] . $base . $extensions[$i])) {
                     $this->src = $base . $extensions[$i];
                     return false;
@@ -127,9 +169,9 @@ class ih_image
     {
         global $ihConf;
         
-        if (strstr($this->src, $ihConf['large']['suffix'])) {
+        if (strpos($this->src, $ihConf['large']['suffix']) !== false) {
             $this->sizetype = 'large';
-        } elseif (strstr($this->src, $ihConf['medium']['suffix'])) {
+        } elseif (strpos($this->src, $ihConf['medium']['suffix']) !== false) {
             $this->sizetype = 'medium';
         } elseif ((intval($this->width) == intval($ihConf['small']['width'])) && (intval($this->height) == intval($ihConf['small']['height']))) {
             $this->sizetype = 'small';
@@ -159,11 +201,11 @@ class ih_image
                 break;
             case 'medium':
                 $this->watermark['file'] = ($ihConf['medium']['watermark']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'medium/watermark' . $ihConf['medium']['suffix'] . '.png': '';
-                $this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['medium']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
+                $this->zoom['file'] = (isset($ihConf['large']['zoom']) && $ihConf['medium']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'medium/zoom' . $ihConf['medium']['suffix'] . '.png' : '';
                 break;
             case 'small':
                 $this->watermark['file'] = ($ihConf['small']['watermark']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'watermark.png' : '';
-                $this->zoom['file'] = (isset($ihConf['large']['zoom'])&&$ihConf['small']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'zoom.png' : '';
+                $this->zoom['file'] = (isset($ihConf['small']['zoom']) && $ihConf['small']['zoom']) ? $ihConf['dir']['docroot'] . $ihConf['dir']['images'] . 'zoom.png' : '';
                 break;
             default:
                 $this->watermark['file'] = '';
@@ -171,7 +213,7 @@ class ih_image
                 break;
         }
 
-        if (($this->watermark['file'] != '') && is_file($this->watermark['file'])) {
+        if ($this->watermark['file'] != '' && is_file($this->watermark['file'])) {
             // set watermark parameters
             list($this->watermark['width'], $this->watermark['height']) = @getimagesize($this->watermark['file']);
             list($this->watermark['startx'], $this->watermark['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->watermark['width'], $this->watermark['height'], $ihConf['watermark']['gravity']);
@@ -180,7 +222,7 @@ class ih_image
             $this->watermark['file'] = '';
         }
         
-        if (($this->zoom['file'] != '') && is_file($this->zoom['file'])) {
+        if ($this->zoom['file'] != '' && is_file($this->zoom['file'])) {
             // set zoom parameters
             list($this->zoom['width'], $this->zoom['height']) = @getimagesize($this->zoom['file']);
             list($this->zoom['startx'], $this->zoom['starty']) = $this->calculate_gravity($this->canvas['width'], $this->canvas['height'], $this->zoom['width'], $this->zoom['height'], $ihConf['zoom']['gravity']);
@@ -192,7 +234,9 @@ class ih_image
     
     public function get_local() 
     {
-        if ($this->local) return $this->local;
+        if ($this->local) {
+            return $this->local;
+        }
         // check if image handler is available and if we should resize at all
         if ($this->resizing_allowed()) {
             $this->local = $this->get_resized_image($this->width, $this->height);
@@ -204,16 +248,15 @@ class ih_image
 
     public function resizing_allowed() 
     {
-        global $bmzConf;
-        global $ihConf;
+        global $bmzConf, $ihConf;
         // only resize if resizing is turned on
         // don't resize template images so test for the configured images directory.
         // if $ihConf['noresize_key'] is found within the string, don't resize either.
         $allowed = false;
         if ($ihConf['resize'] && 
-            ((strpos($this->src, $ihConf['dir']['images']) === 0) || 
-            ((strpos($this->src, substr($bmzConf['cachedir'], strlen($ihConf['dir']['docroot']))) === 0))) &&
-            (strpos($this->src, $ihConf['noresize_key']) === false)) {
+            ( strpos($this->src, $ihConf['dir']['images']) === 0 || 
+              strpos($this->src, substr($bmzConf['cachedir'], strlen($ihConf['dir']['docroot']))) === 0) &&
+            strpos($this->src, $ihConf['noresize_key']) === false) {
             $allowed = true;
             for ($i=0; $i++; $i<count($ihConf)) {
                 $allowed &= (strpos($this->src, $ihConf['dir']['images'] . $ihConf['noresize_dirs'][$i] . '/') !== 0);
@@ -252,8 +295,9 @@ class ih_image
                 break;
         }
         list($newwidth, $newheight, $resize) = $this->calculate_size($width, $height);
+        
         // set canvas dimensions
-        if (($newwidth > 0) && ($newheight > 0)) {
+        if ($newwidth > 0 && $newheight > 0) {
             $this->canvas['width'] = $newwidth;
             $this->canvas['height'] = $newheight;
         }
@@ -264,36 +308,34 @@ class ih_image
         $file_extension = ($filetype == '') ? $file_extension : $filetype;
         
         // Do we need to resize, watermark, zoom or convert to another filetype?
-        if ($resize || ($this->watermark['file'] != '') || ($this->zoom['file'] != '') || ($file_extension != $this->extension)) {
+        if ($resize || $this->watermark['file'] != '' || $this->zoom['file'] != '' || $file_extension != $this->extension) {
             if (IH_CACHE_NAMING == 'Hashed') {
                 $local = getCacheName($this->src . $this->watermark['file'] . $this->zoom['file'] . $quality . $background . $ihConf['watermark']['gravity'] . $ihConf['zoom']['gravity'], '.image.' . $newwidth . 'x' . $newheight . $file_extension);
             } else {
                 // use pathinfo to get full path of an image
                 $image_path = pathinfo($this->src);
-                // get image name from path
-                $image_basename = $image_path['basename'];
-                // now let's clean it up for those who don't know image files SHOULD be named
-                $image_basename = str_replace(' ', '-', $image_basename); // Replaces all spaces with hyphens
-                $image_basename = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_basename); // Removes special chars, keeps hyphen and underscore
-                $image_basename = preg_replace('/-+/', '-', $image_basename); // Replaces multiple hyphens with single one
                 
-                // get last directory from path
-                $image_dirname = basename($image_path['dirname']);
-                // now let's clean up the directory name just like we did with image name (this should be a function, I know, I know...)
-                $image_dirname = str_replace(' ', '-', $image_dirname); // Replaces all spaces with hyphens
-                $image_dirname = preg_replace('/[^A-Za-z0-9\-_]/', '', $image_dirname); // Removes special chars, keeps hyphen and underscore
-                $image_dirname = preg_replace('/-+/', '-', $image_dirname); // Replaces multiple hyphens with single one
+                // get image name from path and clean it up for those who don't know how image files SHOULD be named
+                $image_basename = $this->sanitizeImageNames($image_path['basename']);
+                
+                // get last directory from path and clean that up just like the image's base name
+                $image_dirname = $this->sanitizeImageNames(basename($image_path['dirname']));
                 
                 // if last directory is images (meaning image is stored in main images folder), do nothing, else append directory name
-                $image_dirname == rtrim(DIR_WS_IMAGES, '/') ? $image_dir = '' : $image_dir = ($image_dirname .'-');
+                if ($image_dirname == rtrim(DIR_WS_IMAGES, '/')) {
+                    $image_dir = '';
+                } else {
+                    $image_dir = $image_dirname . '-';
+                }
                 
                 // and now do the magic and create cached image name with the above parameters
-                $local = getCacheName(strtolower($image_dir.$image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
+                $local = getCacheName(strtolower($image_dir . $image_basename), '.image.' . $newwidth . 'x' . $newheight . $file_extension);
             }
             
             //echo $local . '<br />';    
             $mtime = @filemtime($local); // 0 if not exists
-            if ( (($mtime > @filemtime($this->filename)) && ($mtime > @filemtime($this->watermark['file'])) && ($mtime > @filemtime($this->zoom['file'])) ) ||
+            $this->ihLog("get_resized_image($local), ($mtime), " . $this->filename . PHP_EOL . json_encode($this));
+            if ( ($mtime > @filemtime($this->filename) && $mtime > @filemtime($this->watermark['file']) && $mtime > @filemtime($this->zoom['file']) ) ||
                 $this->resize_imageIM($file_extension, $local, $background, $quality) ||
                 $this->resize_imageGD($file_extension, $local, $background, $quality) ) {
                 return str_replace($ihConf['dir']['docroot'], '', $local);
@@ -301,6 +343,13 @@ class ih_image
             //still here? resizing failed
         }
         return $this->src;
+    }
+    
+    protected function sanitizeImageNames($name)
+    {
+        $name = str_replace(' ', '-', $name); // Replaces all spaces with hyphens
+        $name = preg_replace('/[^A-Za-z0-9\-_]/', '', $name); // Removes special chars, keeps hyphen and underscore
+        return preg_replace('/-+/', '-', $name); // Replaces multiple hyphens with single one
     }
     
     /**
@@ -385,7 +434,7 @@ class ih_image
             $bg .= $transparent ? ' transparent' : '';
         }
         $gif_treatment = false;
-        if ($transparent && ($file_ext == ".gif")) {
+        if ($transparent && $file_ext == ".gif") {
             // Special treatment for gif files
             $bg = trim(str_replace('transparent', '', $bg));
             $bg = ($bg != '') ? $bg : 'rgb(255,255,255)';
@@ -404,7 +453,7 @@ class ih_image
         $command .= ($this->watermark['file'] != '') ? ' "' . $this->watermark['file'] . '" -compose Over -gravity ' . $ihConf['watermark']['gravity'] . " -composite" : ''; 
         $command .= ($this->zoom['file'] != '') ? ' "' . $this->zoom['file'] . '" -compose Over -gravity ' . $ihConf['zoom']['gravity'] . " -composite " : ' ';
         $command .= $gif_treatment ? $temp_name : (preg_match("/\.jp(e)?g/i", $file_ext) ? "-quality $quality " : '') . "\"$dest_name\"";
-        @exec($command . ' 2>&1', $message, $retval);
+        exec($command . ' 2>&1', $message, $retval);
         if ($gif_treatment) {
             if ($retval != 0) return false;
             $command  = $ihConf['im_convert'] . " -size $size ";
@@ -412,7 +461,7 @@ class ih_image
             $command .= " \"$temp_name\" -compose Over -gravity Center -geometry $size -composite";
             $command .= " \"$temp_name\" -channel Alpha -threshold " . $ihConf['trans_threshold'] . " -compose CopyOpacity -gravity Center -geometry $size -composite";
             $command .= " \"$dest_name\"";
-            @exec($command . ' 2>&1', $message, $retval);
+            exec($command . ' 2>&1', $message, $retval);
         }
         if ($retval == 0) return true;
 
@@ -490,9 +539,14 @@ class ih_image
         global $ihConf;
         global $messageStack;
   
-        if($ihConf['gdlib'] < 1) return false; //no GDlib available or wanted
+        if ($ihConf['gdlib'] < 1) {
+            $this->ihLog('resize_imageGD: ihConf, gdlib is < 1, GDlib is unavailable or unwanted.');
+            return false; //no GDlib available or wanted
+        }
         $srcimage = $this->load_imageGD($this->filename);
-        if (!$srcimage) return false; // couldn't load image
+        if (!$srcimage) {
+            return false; // couldn't load image
+        }
         $src_ext = substr($this->filename, strrpos($this->filename, '.'));
         $srcwidth = imagesx($srcimage);
         $srcheight = imagesy($srcimage);
@@ -511,14 +565,19 @@ class ih_image
         $startwidth = (($this->canvas['width'] - $newwidth)/2);
         $startheight = (($this->canvas['height'] - $newheight)/2);
 
-        if (($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
+        if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
             $tmpimg = @imagecreatetruecolor ($newwidth, $newheight);
         }
-        if (!$tmpimg) $tmpimg = @imagecreate($newwidth, $newheight);
-        if (!$tmpimg) return false;
+        if (!$tmpimg) {
+            $tmpimg = @imagecreate($newwidth, $newheight);
+        }
+        if (!$tmpimg) {
+            $this->ihLog('resize_imageGD: failed to create temporary image file');
+            return false;
+        }
     
         //keep alpha channel if possible
-        if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
+        if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')) {
             imagealphablending($tmpimg, false);
         }
         //try resampling first
@@ -533,13 +592,18 @@ class ih_image
         imagedestroy($srcimage);
     
         // initialize FIRST background image (transparent canvas)
-        if (($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")) {
+        if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")) {
             $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
         }
-        if(!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
-        if(!$newimg) return false;
+        if (!$newimg) {
+            $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
+        }
+        if (!$newimg) {
+            $this->ihLog('resize_imageGD: failed to create new image file');
+            return false;
+        }
     
-        if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
+        if ($ihConf['gdlib'] > 1 && function_exists('imagesavealpha')){
             imagealphablending($newimg, false);
         }
         $background_color = imagecolorallocatealpha($newimg, 255, 255, 255, 127);
@@ -550,8 +614,7 @@ class ih_image
         imagedestroy($tmpimg);
         $tmpimg = $newimg; 
 
-
-        if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
+        if ($ihConf['gdlib'] > 1 && function_exists('imagesavealpha')){
             imagealphablending($tmpimg, true);
         }
         // we need to watermark our images
@@ -571,13 +634,18 @@ class ih_image
         }
 
         // initialize REAL background image (filled canvas)
-        if(($ihConf['gdlib']>1) && function_exists("imagecreatetruecolor")){
+        if ($ihConf['gdlib'] > 1 && function_exists("imagecreatetruecolor")){
             $newimg = @imagecreatetruecolor ($this->canvas['width'], $this->canvas['height']);
         }
-        if (!$newimg) $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
-        if (!$newimg) return false;
+        if (!$newimg) {
+            $newimg = @imagecreate($this->canvas['width'], $this->canvas['height']);
+        }
+        if (!$newimg) {
+            $this->ihLog('resize_imageGD: failed to create new image with background.');
+            return false;
+        }
     
-        if ($ihConf['gdlib']>1 && function_exists('imagesavealpha')){
+        if ($ihConf['gdlib'] > 1 && function_exists('imagesavealpha')){
             imagealphablending($newimg, false);
         }
 
@@ -658,26 +726,42 @@ class ih_image
         $file_ext = substr($src_name, strrpos($src_name, '.'));
         switch (strtolower($file_ext)) {
             case '.gif':
-                if(!function_exists("imagecreatefromgif")) return false;
-                $image = @imagecreatefromgif($src_name);
+                if (!function_exists("imagecreatefromgif")) {
+                    return false;
+                }
+                $image = imagecreatefromgif($src_name);
                 break;
             case '.png':
-                if(!function_exists("imagecreatefrompng")) return false;
-                $image = @imagecreatefrompng($src_name);
+                if (!function_exists("imagecreatefrompng")) {
+                    return false;
+                }
+                $image = imagecreatefrompng($src_name);
                 break;
             case '.jpg':
             case '.jpeg':
-                if(!function_exists("imagecreatefromjpeg")) return false;
-                $image = @imagecreatefromjpeg($src_name);
+                if (!function_exists("imagecreatefromjpeg")) {
+                    return false;
+                }
+                $image = imagecreatefromjpeg($src_name);
                 break;
+        }
+        if ($image === false) {
+            $php_error_msg = error_get_last();
+            $this->ihLog("load_imageGD($src_name), failure loading the image: " . $php_error_msg['message']);
         }
         return $image;
     }
     
     public function save_imageGD($file_ext, $image, $dest_name, $quality = 75) 
     {
-        global $ihConf;
-        
+        // -----
+        // Initially, santitize the quality input for use by imagejpeg; values should
+        // be in the range 0-100.
+        //
+        $quality = (int)$quality;
+        if ($quality < 0 || $quality > 100) {
+            $quality = 75;
+        }
         switch (strtolower($file_ext)) {
             case '.gif':
                 if(!function_exists("imagegif")) return false;
@@ -685,7 +769,15 @@ class ih_image
                 break;
             case '.png':
                 if(!function_exists("imagepng")) return false;
-                $quality = (int)$quality/100;
+                
+                // -----
+                // The quality input for imagepng requires an integer value in the
+                // range 0-9.  If the value's out-of-range, use a proportional setting
+                // based on the input.
+                //
+                if ($quality > 9) {
+                    $quality = (int)(9 * $quality / 100);
+                }
                 $ok = imagepng($image, $dest_name, $quality);
                 break;
             case '.jpg':
@@ -693,7 +785,9 @@ class ih_image
                 if(!function_exists("imagejpeg")) return false;
                 $ok = imagejpeg($image, $dest_name, $quality);
                 break;
-            default: $ok = false;
+            default: 
+                $ok = false;
+                break;
         }
         imagedestroy($image);
     
@@ -751,5 +845,12 @@ class ih_image
             return $parameters;
         }
         return $parameters;
-    }  
+    }
+
+    protected function ihLog($message)
+    {
+        if ($this->debug) {
+            error_log(date('Y-m-d H:i:s: ') . $this->filename . ', ' . $message . PHP_EOL . PHP_EOL, 3, $this->debugLogFile);
+        }
+    }
 }
