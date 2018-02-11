@@ -78,8 +78,8 @@ if (!defined('IS_ADMIN_FLAG')) {
 		$menulist = $pzen_menu['megamenu'];
 		$zen_CategoriesUL = $pzen_menu['catul_ar'];
 		$cat_array = $zen_CategoriesUL->data;
-				
-		foreach($cat_array[0] as $k0=>$v0){
+		
+        foreach($cat_array as $k0=>$v0){
 			/**================================================================================================
 			**Add menuitem marked
 			**===============================================================================================*/
@@ -103,7 +103,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 			}else{
 				$menulist = str_replace('[BADGE ID="'.$k0.'"]','',$menulist);
 			}
-			
+		  
 			/**================================================================================================
 			**Add megamenu side block content
 			**===============================================================================================*/
