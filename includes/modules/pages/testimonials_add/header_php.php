@@ -140,7 +140,7 @@ if (REGISTERED_TESTIMONIAL == 'true'){
 	  
 //////////////
 
-      zen_redirect(zen_href_link(FILENAME_TESTIMONIALS_ADD, 'action=success', 'SSL'));
+      zen_redirect(zen_href_link(FILENAME_TESTIMONIALS_ADD, 'action=success'));
 
 }
   }

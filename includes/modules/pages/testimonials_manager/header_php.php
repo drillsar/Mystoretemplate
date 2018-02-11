@@ -11,8 +11,7 @@
  
    require(DIR_WS_MODULES . 'require_languages.php');
  $id = (int)$_GET['testimonials_id'];
- $which_languages = (TESTIMONIALS_DISPLAY_ALL_LANGUAGES == 'true') ? '' : (" and language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  $page_check = $db->Execute("select * from " . TABLE_TESTIMONIALS_MANAGER . " where testimonials_id = $id and status = 1" . $which_languages . " order by date_added DESC, testimonials_title");
+  $page_check = $db->Execute("select * from " . TABLE_TESTIMONIALS_MANAGER . " where testimonials_id = $id");
   define('NAVBAR_TITLE', 'Testimonial');
   $date_published = $page_check->fields['date_added'];
 $breadcrumb->add(NAVBAR_TITLE);
