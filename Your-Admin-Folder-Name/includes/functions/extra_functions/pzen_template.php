@@ -6,9 +6,9 @@ if (!defined('IS_ADMIN_FLAG')) {
 }
 
 if (function_exists('zen_register_admin_page')) {
-	if (!zen_page_key_exists('FILENAME_TEMPLATE_SETTINGS')) {
+	if (!zen_page_key_exists('configPzenTemplate')) {
 		// Add Color menu to Tools menu
-		zen_register_admin_page('FILENAME_TEMPLATE_SETTINGS', 'BOX_TOOLS_TEMPLATE_SETTINGS','FILENAME_PZENTEMPLATE', '', 'tools', 'Y', 20);
+		zen_register_admin_page('configPzenTemplate', 'BOX_TOOLS_TEMPLATE_SETTINGS','FILENAME_PZENTEMPLATE', '', 'tools', 'Y', 20);
 	}
 }
 
