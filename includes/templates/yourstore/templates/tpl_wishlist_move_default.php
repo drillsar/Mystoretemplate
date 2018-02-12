@@ -19,12 +19,12 @@
         <ul class="simple-list">
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
-                    <?php echo UN_TEXT_NEW_WISHLIST; ?>
+                    <?php echo TEXT_NEW_WISHLIST; ?>
                 </a>
             </li>
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, '', 'SSL'); ?>">
-                    <?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
+                    <?php echo TEXT_MANAGE_WISHLISTS; ?>
                 </a>
             </li>
         </ul>
@@ -39,7 +39,7 @@
     
 	<div class="sorter filters-row">
 		<div class="multiple">
-			<label for="sort"><?php echo UN_TEXT_SORT . UN_LABEL_DELIMITER; ?></label>
+			<label for="sort"><?php echo TEXT_SORT . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php 
 					echo zen_draw_pull_down_menu('sort', $aSortOptions, (isset($_GET['sort']) ? $_GET['sort'] : ''), 'class="m" onchange="this.form.submit()"');
@@ -48,10 +48,10 @@
 		</div>
 		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
-			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
+			<label for="cPath"><?php echo TEXT_SHOW . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php
-				echo un_draw_categories_pull_down_menu('cPath', UN_TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
+				echo un_draw_categories_pull_down_menu('cPath', TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
 				?>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
     
 	<fieldset>
 		<div class="single">
-			<label for="wishlists_id"><?php echo LABEL_MOVETO . UN_LABEL_DELIMITER; ?></label>
+			<label for="wishlists_id"><?php echo LABEL_MOVETO . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php
 					echo $oWishlist->getWishlistMenu('wishlists_id', (isset($_REQUEST['wid']) ? $_REQUEST['wid'] : ''), '');
@@ -101,7 +101,7 @@
                 <?php $products->MoveNext(); ?>
                 <?php } // end while products ?>
             <?php } else { ?>
-            <tr><td colspan="99"><?php echo UN_TEXT_NO_PRODUCTS; ?></td></tr>
+            <tr><td colspan="99"><?php echo TEXT_NO_PRODUCTS; ?></td></tr>
             <?php } ?>
         </table>
    	</div>

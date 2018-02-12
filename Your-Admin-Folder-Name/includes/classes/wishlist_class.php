@@ -161,7 +161,7 @@ class un_wishlist extends un_productlist {
 			$sql = "SELECT 
 						* 
 					FROM 
-						".UN_TABLE_WISHLISTS." w, 
+						".TABLE_WISHLISTS." w, 
 						".TABLE_CUSTOMERS." c  
 					WHERE 
 						w.id=".$this->_iWishlistId." 
@@ -204,9 +204,9 @@ class un_wishlist extends un_productlist {
 						c.customers_firstname, 
 						c.customers_lastname 
 					FROM 
-						".UN_TABLE_WISHLISTS." w 
+						".TABLE_WISHLISTS." w 
 					LEFT JOIN 
-						".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w ON w.id=p2w.un_wishlists_id 
+						".TABLE_PRODUCTS_TO_WISHLISTS." p2w ON w.id=p2w.wishlists_id 
 					LEFT JOIN 
 						".TABLE_PRODUCTS." p ON p2w.products_id=p.products_id 
 					LEFT JOIN 
@@ -235,7 +235,7 @@ class un_wishlist extends un_productlist {
 		$sql = "SELECT 
 					w.id, w.name, w.comment, w.public_status, c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address, ab.entry_city, ab.entry_state 
 				FROM 
-					".UN_TABLE_WISHLISTS." w, 
+					".TABLE_WISHLISTS." w, 
 					".TABLE_CUSTOMERS." c, 
 					".TABLE_ADDRESS_BOOK." ab 
 				WHERE 
@@ -265,12 +265,12 @@ class un_wishlist extends un_productlist {
 	 *----------------------------------------------------------*/
 	function getProductsQuery() {
 		
-		$this->_sSqlFrom = "from ".UN_TABLE_WISHLISTS." w, ".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd ";
+		$this->_sSqlFrom = "from ".TABLE_WISHLISTS." w, ".TABLE_PRODUCTS_TO_WISHLISTS." p2w, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd ";
 		
 		$this->_sSqlWhere = "where w.id = '".$this->_iWishlistId."' 
 			and pd.language_id = '".(int)$_SESSION['languages_id']."' 
 			and p.products_status = 1 
-			and w.id = p2w.un_wishlists_id 
+			and w.id = p2w.wishlists_id 
 			and p2w.products_id = p.products_id 
 			and p2w.products_id = pd.products_id ";
 			
@@ -304,9 +304,9 @@ class un_wishlist extends un_productlist {
 		}
 
 		$sql = "DELETE FROM 
-							".UN_TABLE_PRODUCTS_TO_WISHLISTS." 
+							".TABLE_PRODUCTS_TO_WISHLISTS." 
 						WHERE 
-							un_wishlists_id='".$this->_iWishlistId."' 
+							wishlists_id='".$this->_iWishlistId."' 
 						";
 		
 		$result = $this->_oDB->Execute($sql);
@@ -316,7 +316,7 @@ class un_wishlist extends un_productlist {
 		}
 
 		$sql = "DELETE FROM 
-							".UN_TABLE_WISHLISTS." 
+							".TABLE_WISHLISTS." 
 						WHERE 
 							id='".$this->_iWishlistId."' 
 						";
@@ -340,7 +340,7 @@ class un_wishlist extends un_productlist {
 		
 		// Remove from database
 		if ( !empty($this->_iWishlistId) ) {
-			$sql = "delete from ".UN_TABLE_PRODUCTS_TO_WISHLISTS." where un_wishlists_id = '".$this->_iWishlistId."' and products_id = '".$products_id."'";
+			$sql = "delete from ".TABLE_PRODUCTS_TO_WISHLISTS." where wishlists_id = '".$this->_iWishlistId."' and products_id = '".$products_id."'";
 			
 			$result = $this->_oDB->Execute($sql);
 			if ( !$result ) {

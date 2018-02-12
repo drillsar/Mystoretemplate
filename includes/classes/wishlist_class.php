@@ -73,7 +73,7 @@ class un_wishlist extends un_productlist {
      */
     var $_aStructure = array(
 		array(
-			'label'			=>	UN_TABLE_HEADING_PRODUCTS,
+			'label'			=>	TABLE_HEADING_PRODUCTS,
 			'field'			=>	'pd.products_name',
 			'column_order'	=>	1,
 			'default'		=>	true,
@@ -81,7 +81,7 @@ class un_wishlist extends un_productlist {
 			'command'		=>	'product',
 		),
 		array(
-			'label'			=>	UN_TABLE_HEADING_PRICE,
+			'label'			=>	TABLE_HEADING_PRICE,
 			'field'			=>	'p.products_price',
 			'column_order'	=>	2,
 			'default'		=>	false,
@@ -90,7 +90,7 @@ class un_wishlist extends un_productlist {
 			'command'		=>	'price',
 		),
 		array(
-			'label'			=>	UN_TEXT_PRIORITY,
+			'label'			=>	TEXT_PRIORITY,
 			'field'			=>	'p2w.priority',
 			'column_order'	=>	3,
 			'default'		=>	false,
@@ -99,7 +99,7 @@ class un_wishlist extends un_productlist {
 			'command'		=>	'priority_menu_s',
 		),
 		array(
-			'label'			=>	UN_TEXT_REMOVE,
+			'label'			=>	TEXT_REMOVE,
 			'field'			=>	'',
 			'column_order'	=>	4,
 			'default'		=>	false,
@@ -108,7 +108,7 @@ class un_wishlist extends un_productlist {
 			'command'		=>	'deletewish_checkbox',
 		),
 		array(
-			'label'			=>	UN_TABLE_HEADING_BUY_NOW,
+			'label'			=>	TABLE_HEADING_BUY_NOW,
 			'field'			=>	'',
 			'column_order'	=>	5,
 			'default'		=>	false,
@@ -202,7 +202,7 @@ class un_wishlist extends un_productlist {
 		$sql = "SELECT 
 					id 
 				FROM 
-					".UN_TABLE_WISHLISTS." w 
+					".TABLE_WISHLISTS." w 
 				WHERE 
 					w.customers_id=".$this->_iCustomerId." 
 					and w.default_status=1 
@@ -210,7 +210,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_ID);
+			$this->_oMessages->add($this->_sName, ERROR_GET_ID);
 				return false;
 		}
 		
@@ -231,7 +231,7 @@ class un_wishlist extends un_productlist {
 		$sql = "SELECT 
 					* 
 				FROM 
-					".UN_TABLE_WISHLISTS." w, 
+					".TABLE_WISHLISTS." w, 
 					".TABLE_CUSTOMERS." c 
 				WHERE 
 					w.id=".$this->_iWishlistId." 
@@ -240,7 +240,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_CUSTDATA);
+			$this->_oMessages->add($this->_sName, ERROR_GET_CUSTDATA);
 				return false;
 		}
 		
@@ -257,19 +257,19 @@ class un_wishlist extends un_productlist {
 	function hasPermission() {
 		
 		if ( un_is_empty($this->_iWishlistId) ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_PERMISSION);
+			$this->_oMessages->add($this->_sName, ERROR_GET_PERMISSION);
 			return false;
 		}
 		
 		if ( un_is_empty($this->_iCustomerId) ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_PERMISSION);
+			$this->_oMessages->add($this->_sName, ERROR_GET_PERMISSION);
 			return false;
 		}		
 		
 		$sql = "SELECT 
 					count(id) as items_count 
 				FROM 
-					".UN_TABLE_WISHLISTS." 
+					".TABLE_WISHLISTS." 
 				WHERE 
 					id='".$this->_iWishlistId."' 
 					and customers_id='".$this->_iCustomerId."' 
@@ -277,7 +277,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
 		if ( (int)$result->fields['items_count']==0 ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_PERMISSION);
+			$this->_oMessages->add($this->_sName, ERROR_GET_PERMISSION);
 				return false;
 		}
 		
@@ -297,19 +297,19 @@ class un_wishlist extends un_productlist {
 			$sql = "SELECT 
 						* 
 					FROM 
-						".UN_TABLE_WISHLISTS." w 
+						".TABLE_WISHLISTS." w 
 					WHERE 
 						w.id=".$this->_iWishlistId." 
 					";
 					
 			$result = $this->_oDB->Execute($sql);
 			if ( !$result ) {
-				$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST);
+				$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST);
 				return false;
 			}
         
         } else {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST_ID);
+			$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST_ID);
         	return false;
         }
 			
@@ -337,9 +337,9 @@ class un_wishlist extends un_productlist {
 						w.public_status,
 						count(p.products_id) as items_count 
 					FROM 
-						".UN_TABLE_WISHLISTS." w 
+						".TABLE_WISHLISTS." w 
 					LEFT JOIN 
-						".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w ON w.id=p2w.un_wishlists_id 
+						".TABLE_PRODUCTS_TO_WISHLISTS." p2w ON w.id=p2w.wishlists_id 
 					LEFT JOIN 
 						".TABLE_PRODUCTS." p ON p2w.products_id=p.products_id 
 					WHERE 
@@ -350,12 +350,12 @@ class un_wishlist extends un_productlist {
 					
 			$result = $this->_oDB->Execute($sql);
 			if ( !$result ) {
-				$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST);
+				$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST);
 				return false;
 			}
         
         } else {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST_ID);
+			$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST_ID);
         	return false;
         }
 			
@@ -374,7 +374,7 @@ class un_wishlist extends un_productlist {
 					w.id, 
 					w.name 
 				FROM 
-					" . UN_TABLE_WISHLISTS . " w 
+					" . TABLE_WISHLISTS . " w 
 				WHERE 
 					w.customers_id='".$this->_iCustomerId."' 
 				ORDER BY 
@@ -405,7 +405,7 @@ class un_wishlist extends un_productlist {
 		$sql = "SELECT 
 					w.id, w.name, w.comment, w.public_status, c.customers_id, c.customers_firstname, c.customers_lastname, c.customers_email_address, ab.entry_city, ab.entry_state 
 				FROM 
-					".UN_TABLE_WISHLISTS." w, 
+					".TABLE_WISHLISTS." w, 
 					".TABLE_CUSTOMERS." c, 
 					".TABLE_ADDRESS_BOOK." ab 
 				WHERE 
@@ -420,7 +420,7 @@ class un_wishlist extends un_productlist {
 				
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_FIND_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_FIND_WISHLIST);
 			return false;
 		}
 			
@@ -435,12 +435,12 @@ class un_wishlist extends un_productlist {
 	/*----------------------------------------------------------*/
 	function getProductsQuery() {
 		
-		$this->_sSqlFrom = "from ".UN_TABLE_WISHLISTS." w, ".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd ";
+		$this->_sSqlFrom = "from ".TABLE_WISHLISTS." w, ".TABLE_PRODUCTS_TO_WISHLISTS." p2w, ".TABLE_PRODUCTS." p, ".TABLE_PRODUCTS_DESCRIPTION." pd ";
 		
 		$this->_sSqlWhere = "where w.id = '".$this->_iWishlistId."' 
 			and pd.language_id = '".(int)$_SESSION['languages_id']."' 
 			and p.products_status = 1 
-			and w.id = p2w.un_wishlists_id 
+			and w.id = p2w.wishlists_id 
 			and p2w.products_id = p.products_id 
 			and p2w.products_id = pd.products_id ";
 			
@@ -462,14 +462,14 @@ class un_wishlist extends un_productlist {
         $sql = "SELECT 
                     public_status 
                 FROM 
-                    ".UN_TABLE_WISHLISTS." 
+                    ".TABLE_WISHLISTS." 
                 WHERE 
                 	id=".$this->_iWishlistId." 
 				";
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_IS_PRIVATE);
+			$this->_oMessages->add($this->_sName, ERROR_IS_PRIVATE);
             return false;
         }
         
@@ -493,7 +493,7 @@ class un_wishlist extends un_productlist {
 		}
         
         $sql = "UPDATE 
-                    ".UN_TABLE_WISHLISTS." 
+                    ".TABLE_WISHLISTS." 
                 SET 
                 	default_status=0 
                 WHERE 
@@ -502,7 +502,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_MAKE_DEFAULT_ZERO);
+			$this->_oMessages->add($this->_sName, ERROR_MAKE_DEFAULT_ZERO);
             return false;
         }
 		
@@ -511,7 +511,7 @@ class un_wishlist extends un_productlist {
 		}
         
         $sql = "UPDATE 
-                    ".UN_TABLE_WISHLISTS." 
+                    ".TABLE_WISHLISTS." 
                 SET 
                 	default_status=1 
                 WHERE 
@@ -520,7 +520,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_MAKE_DEFAULT);
+			$this->_oMessages->add($this->_sName, ERROR_MAKE_DEFAULT);
             return false;
         }
         
@@ -540,7 +540,7 @@ class un_wishlist extends un_productlist {
 		}
         
         $sql = "UPDATE 
-                    ".UN_TABLE_WISHLISTS." 
+                    ".TABLE_WISHLISTS." 
                 SET 
                 	public_status=1 
                 WHERE 
@@ -549,7 +549,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_MAKE_PUBLIC);
+			$this->_oMessages->add($this->_sName, ERROR_MAKE_PUBLIC);
             return false;
         }
         
@@ -569,7 +569,7 @@ class un_wishlist extends un_productlist {
 		}
         
         $sql = "UPDATE 
-                    ".UN_TABLE_WISHLISTS." 
+                    ".TABLE_WISHLISTS." 
                 SET 
                 	public_status=0 
                 WHERE 
@@ -578,7 +578,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_MAKE_PRIVATE);
+			$this->_oMessages->add($this->_sName, ERROR_MAKE_PRIVATE);
             return false;
         }
         
@@ -598,7 +598,7 @@ class un_wishlist extends un_productlist {
 		
 		$result = $this->createWishlist(DEFAULT_WISHLIST_NAME, '', 1, 1);
 		if ( $result===false ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_CREATE_DEFAULT);
+			$this->_oMessages->add($this->_sName, ERROR_CREATE_DEFAULT);
 			return false;
 		}
 		$this->_iWishlistId = $result;
@@ -617,16 +617,16 @@ class un_wishlist extends un_productlist {
         $sql = "SELECT 
                     count(p2w.products_id) AS items_count 
                 FROM 
-                    ".UN_TABLE_WISHLISTS." w, 
-                    ".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w 
+                    ".TABLE_WISHLISTS." w, 
+                    ".TABLE_PRODUCTS_TO_WISHLISTS." p2w 
                 WHERE 
                 	w.customers_id=".$this->_iCustomerId." 
                 	AND p2w.products_id=".$products_id." 
-                	AND w.id=p2w.un_wishlists_id ";
+                	AND w.id=p2w.wishlists_id ";
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_IN_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_IN_WISHLIST);
             return false;
         }
         
@@ -655,7 +655,7 @@ class un_wishlist extends un_productlist {
 			return false;
 		}
 
-		$sql = "INSERT INTO ".UN_TABLE_WISHLISTS." (
+		$sql = "INSERT INTO ".TABLE_WISHLISTS." (
 					`customers_id`, 
 					`created`, 
 					`modified`, 
@@ -675,7 +675,7 @@ class un_wishlist extends un_productlist {
   
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_CREATE_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_CREATE_WISHLIST);
 			return false;
 		}
 		
@@ -696,7 +696,7 @@ class un_wishlist extends un_productlist {
 		}
 
         // create new record
-		$sql = "INSERT INTO ".UN_TABLE_WISHLISTS." (
+		$sql = "INSERT INTO ".TABLE_WISHLISTS." (
 					`customers_id`, 
 					`created`, 
 					`modified`, 
@@ -714,7 +714,7 @@ class un_wishlist extends un_productlist {
   
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_ADD_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_ADD_WISHLIST);
 			return false;
 		}
 		
@@ -735,7 +735,7 @@ class un_wishlist extends un_productlist {
 		}
 
         // create new record
-		$sql = "UPDATE ".UN_TABLE_WISHLISTS." SET 
+		$sql = "UPDATE ".TABLE_WISHLISTS." SET 
 					modified=NOW(), 
 					name='".$aArgs['name']."', 
 					comment='".$aArgs['comment']."', 
@@ -746,7 +746,7 @@ class un_wishlist extends un_productlist {
   
 		$result = $this->_oDB->Execute($sql);
 		if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_EDIT_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_EDIT_WISHLIST);
 			return false;
 		}
 		
@@ -767,9 +767,9 @@ class un_wishlist extends un_productlist {
 		} else {
 
 			if ( !empty($this->_iWishlistId) ) {
-				$sql = "INSERT INTO ".UN_TABLE_PRODUCTS_TO_WISHLISTS." (
+				$sql = "INSERT INTO ".TABLE_PRODUCTS_TO_WISHLISTS." (
 							`products_id`, 
-							`un_wishlists_id`, 
+							`wishlists_id`, 
 							`created`, 
 							`modified`, 
 							`quantity`, 
@@ -789,7 +789,7 @@ class un_wishlist extends un_productlist {
       
 				$result = $this->_oDB->Execute($sql);
 				if ( !$result ) {
-					$this->_oMessages->add($this->_sName, UN_ERROR_ADD_PRODUCT_WISHLIST);
+					$this->_oMessages->add($this->_sName, ERROR_ADD_PRODUCT_WISHLIST);
 					return false;
 				}
 			}
@@ -810,21 +810,21 @@ class un_wishlist extends un_productlist {
 			$sql = "SELECT 
 						* 
 					FROM 
-						".UN_TABLE_PRODUCTS_TO_WISHLISTS." 
+						".TABLE_PRODUCTS_TO_WISHLISTS." 
 					WHERE 
-						un_wishlists_id=".$this->_iWishlistId." 
+						wishlists_id=".$this->_iWishlistId." 
                 		AND products_id=".$products_id."  
 					";
 					
 			$result = $this->_oDB->Execute($sql);
 			if ( !$result ) {
-				$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST);
+				$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST);
 				return false;
 			}
 			$attributes = unserialize($result->fields['attributes']);
         
         } else {
-			$this->_oMessages->add($this->_sName, UN_ERROR_GET_WISHLIST_ID);
+			$this->_oMessages->add($this->_sName, ERROR_GET_WISHLIST_ID);
         	return false;
         }
 			
@@ -845,7 +845,7 @@ class un_wishlist extends un_productlist {
 
 		if ( !empty($this->_iWishlistId) ) {
 			$attributes = serialize($this->wishlist_get_attributes($products_id));
-			$sql = "UPDATE ".UN_TABLE_PRODUCTS_TO_WISHLISTS."
+			$sql = "UPDATE ".TABLE_PRODUCTS_TO_WISHLISTS."
                 SET 
                 	modified = NOW(), 
                 	quantity = '".$quantity."', 
@@ -854,7 +854,7 @@ class un_wishlist extends un_productlist {
                 	attributes = '".$attributes."' 
                 WHERE 
                 	products_id = '".$products_id."' 
-                	AND un_wishlists_id = '".$this->_iWishlistId."' ";
+                	AND wishlists_id = '".$this->_iWishlistId."' ";
 			$this->_oDB->Execute($sql);
 			return true;
 		} else {
@@ -871,13 +871,13 @@ class un_wishlist extends un_productlist {
 	function moveProduct($products_id, $wishlists_id) {
 
 		if ( !empty($this->_iWishlistId) ) {
-			$sql = "UPDATE ".UN_TABLE_PRODUCTS_TO_WISHLISTS."
+			$sql = "UPDATE ".TABLE_PRODUCTS_TO_WISHLISTS."
                 SET 
                 	modified = NOW(), 
-                	un_wishlists_id = '".$wishlists_id."' 
+                	wishlists_id = '".$wishlists_id."' 
                 WHERE 
                 	products_id = '".$products_id."' 
-                	AND un_wishlists_id = '".$this->_iWishlistId."' ";
+                	AND wishlists_id = '".$this->_iWishlistId."' ";
 			$this->_oDB->Execute($sql);
 			return true;
 		} else {
@@ -902,19 +902,19 @@ class un_wishlist extends un_productlist {
 		}
 		
 		if ( $this->_iWishlistId==$this->getDefaultWishlistId() ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_DELETE_DEFAULT_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_DELETE_DEFAULT_WISHLIST);
 			return false;
 		}
 
 		$sql = "DELETE FROM 
-					".UN_TABLE_WISHLISTS." 
+					".TABLE_WISHLISTS." 
 				WHERE 
 					id='".$this->_iWishlistId."' 
 				";
         
         $result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_DELETE_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_DELETE_WISHLIST);
             return false;
         }
         
@@ -931,11 +931,11 @@ class un_wishlist extends un_productlist {
 		
 		// Remove from database
 		if ( !empty($this->_iWishlistId) ) {
-			$sql = "delete from ".UN_TABLE_PRODUCTS_TO_WISHLISTS." where un_wishlists_id = '".$this->_iWishlistId."' and products_id = '".$products_id."'";
+			$sql = "delete from ".TABLE_PRODUCTS_TO_WISHLISTS." where wishlists_id = '".$this->_iWishlistId."' and products_id = '".$products_id."'";
 			
 			$result = $this->_oDB->Execute($sql);
 			if ( !$result ) {
-				$this->_oMessages->add($this->_sName, UN_ERROR_DELETE_PRODUCT_WISHLIST);
+				$this->_oMessages->add($this->_sName, ERROR_DELETE_PRODUCT_WISHLIST);
 				return false;
 			}
 		}
@@ -955,15 +955,15 @@ class un_wishlist extends un_productlist {
         $sql = "SELECT 
                     count(p2w.products_id) AS items_count 
                 FROM 
-                    ".UN_TABLE_WISHLISTS." w, 
-                    ".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w 
+                    ".TABLE_WISHLISTS." w, 
+                    ".TABLE_PRODUCTS_TO_WISHLISTS." p2w 
                 WHERE 
                 	w.customers_id=".$this->_iCustomerId."  
-                	AND w.id=p2w.un_wishlists_id ";
+                	AND w.id=p2w.wishlists_id ";
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_IN_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_IN_WISHLIST);
             return false;
         }
         
@@ -986,15 +986,15 @@ class un_wishlist extends un_productlist {
         $sql = "SELECT 
                     p2w.products_id 
                 FROM 
-                    ".UN_TABLE_WISHLISTS." w, 
-                    ".UN_TABLE_PRODUCTS_TO_WISHLISTS." p2w 
+                    ".TABLE_WISHLISTS." w, 
+                    ".TABLE_PRODUCTS_TO_WISHLISTS." p2w 
                 WHERE 
                 	w.customers_id=".$this->_iCustomerId."  
-                	AND w.id=p2w.un_wishlists_id ";
+                	AND w.id=p2w.wishlists_id ";
 		
 		$result = $this->_oDB->Execute($sql);
         if ( !$result ) {
-			$this->_oMessages->add($this->_sName, UN_ERROR_IN_WISHLIST);
+			$this->_oMessages->add($this->_sName, ERROR_IN_WISHLIST);
             return false;
         }
         

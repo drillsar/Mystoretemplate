@@ -17,13 +17,13 @@
         <ul class="simple-list">
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
-                    <?php echo UN_TEXT_FIND_WISHLIST; ?>
+                    <?php echo TEXT_FIND_WISHLIST; ?>
                 </a>
             </li>
             <?php if ( ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
-                    <?php echo UN_TEXT_NEW_WISHLIST; ?>
+                    <?php echo TEXT_NEW_WISHLIST; ?>
                 </a>
             </li>
             <?php } ?>
@@ -54,7 +54,7 @@
               	</h4>
                 <ul class="simple-list">
                     <li>
-                        <?php echo TABLE_HEADING_ITEMS . UN_LABEL_DELIMITER . $records->fields['items_count']; ?> 
+                        <?php echo TABLE_HEADING_ITEMS . LABEL_DELIMITER . $records->fields['items_count']; ?> 
                         <?php if ( $records->fields['items_count']>0 ) { ?>
                             <?php echo TEXT_ACTION_DELIMITER; ?>
                             <a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$records->fields['id'], 'SSL'); ?>">
@@ -64,10 +64,10 @@
                         <?php } ?>
                     </li>
                     <li>
-                        <?php echo TABLE_HEADING_COMMENT . UN_LABEL_DELIMITER . $records->fields['comment']; ?>
+                        <?php echo TABLE_HEADING_COMMENT . LABEL_DELIMITER . $records->fields['comment']; ?>
                     </li>
                     <li>
-                        <?php echo TABLE_HEADING_DEFAULT . UN_LABEL_DELIMITER; ?>
+                        <?php echo TABLE_HEADING_DEFAULT . LABEL_DELIMITER; ?>
                         <?php if ( $records->fields['default_status']==1 ) { ?>
                             <?php echo TEXT_YES; ?>
                         <?php } else { ?>
@@ -77,11 +77,11 @@
                         <?php } ?>
                     </li>
                     <li>
-                        <?php echo TABLE_HEADING_PUBLIC . UN_LABEL_DELIMITER; ?>
+                        <?php echo TABLE_HEADING_PUBLIC . LABEL_DELIMITER; ?>
                         <?php if ( $records->fields['public_status']==1 ) { ?>
                             <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=deact', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PRIVATE; ?>"><?php echo TEXT_YES; ?></a> 
                             <?php echo TEXT_ACTION_DELIMITER; ?>
-                            <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, 'wid='.$records->fields['id'], 'SSL'); ?>" title="<?php echo UN_TEXT_EMAIL_WISHLIST; ?>"><?php echo UN_TEXT_EMAIL_WISHLIST; ?></a>
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, 'wid='.$records->fields['id'], 'SSL'); ?>" title="<?php echo TEXT_EMAIL_WISHLIST; ?>"><?php echo TEXT_EMAIL_WISHLIST; ?></a>
                         <?php } else { ?>
                             <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=act', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PUBLIC; ?>"><?php echo TEXT_NO; ?></a>
                         <?php } ?>

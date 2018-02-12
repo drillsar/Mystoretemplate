@@ -10,7 +10,7 @@
 
 	<div class="sorter filters-row">
 		<div class="multiple">
-			<label for="sort"><?php echo UN_TEXT_SORT . UN_LABEL_DELIMITER; ?></label>
+			<label for="sort"><?php echo TEXT_SORT . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php 
 					echo zen_draw_pull_down_menu('sort', $aSortOptions, (isset($_GET['sort']) ? $_GET['sort'] : ''), 'class="m" onchange="this.form.submit()"');
@@ -20,16 +20,16 @@
 	
 		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
-			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
+			<label for="cPath"><?php echo TEXT_SHOW . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php
-					echo un_draw_categories_pull_down_menu('cPath', UN_TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
+					echo un_draw_categories_pull_down_menu('cPath', TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
 				?>
 			</div>
 		</div>
 		<?php } ?>
 		<div class="multiple">
-			<label for="layout"><?php echo UN_TEXT_VIEW . UN_LABEL_DELIMITER; ?></label>
+			<label for="layout"><?php echo TEXT_VIEW . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php 
 					echo un_draw_view_pull_down_menu('layout', '', (isset($_GET['layout']) ? $_GET['layout'] : ''), 'class="m" onchange="this.form.submit()"');
@@ -93,27 +93,27 @@
 								</div>
 								<div class="product__inside__description row-mode-visible">
 									<?php if ( SHOW_PRODUCT_INFO_DATE_AVAILABLE && ( $products->fields['products_date_available'] > date('Y-m-d H:i:s') ) ) { ?>
-									<div class="notabene"><?php echo sprintf(UN_TEXT_DATE_AVAILABLE, zen_date_short($products->fields['products_date_available'])); ?></div>
+									<div class="notabene"><?php echo sprintf(TEXT_DATE_AVAILABLE, zen_date_short($products->fields['products_date_available'])); ?></div>
 									<?php } ?>
 									<!-- wishlist data -->
 									<div class="wishlistfields">
 										<ul class="simple-list">
 											<?php if ( $products->fields['date_added'] ) { ?>
 											<li>
-												<?php echo UN_TEXT_DATE_ADDED . UN_LABEL_DELIMITER; ?>
+												<?php echo TEXT_DATE_ADDED . LABEL_DELIMITER; ?>
 												<?php echo zen_date_short($products->fields['date_added']); ?>
 											</li>
 											<?php } ?>
 											<li>
-												<?php echo UN_TEXT_QUANTITY . UN_LABEL_DELIMITER; ?> 
+												<?php echo TEXT_QUANTITY . LABEL_DELIMITER; ?> 
 												<?php echo $products->fields['quantity']; ?>
 											</li>
 											<li>
-												<?php echo UN_TEXT_COMMENT . UN_LABEL_DELIMITER; ?>
+												<?php echo TEXT_COMMENT . LABEL_DELIMITER; ?>
 												<?php echo $products->fields['comment']; ?>
 											</li>
 											<li>
-												<?php echo UN_TEXT_PRIORITY . UN_LABEL_DELIMITER; ?>
+												<?php echo TEXT_PRIORITY . LABEL_DELIMITER; ?>
 												<?php echo $products->fields['priority']; ?>
 											</li>
 										</ul>
@@ -146,7 +146,7 @@
 	
 <?php } else { ?>
 	<div class="alert alert-danger alert-dismissable">
-		<?php echo UN_TEXT_NO_PRODUCTS; ?>
+		<?php echo TEXT_NO_PRODUCTS; ?>
    	</div>
 <?php } // end if products ?>
 <!-- end product listing -->

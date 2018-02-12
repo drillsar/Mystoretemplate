@@ -51,7 +51,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 		$email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME, HTTP_SERVER . DIR_WS_CATALOG, $from_name);
 
 		// include disclaimer
-		$email_body .= "\n\n" . UN_EMAIL_SEPARATOR . EMAIL_ADVISORY . "\n\n";
+		$email_body .= "\n\n" . EMAIL_SEPARATOR . EMAIL_ADVISORY . "\n\n";
 		
 		zen_mail($to_name, $to_email_address, $email_subject, $email_body, $from_name, $from_email_address, array('EMAIL_MESSAGE_HTML' => nl2br($email_body)));
 

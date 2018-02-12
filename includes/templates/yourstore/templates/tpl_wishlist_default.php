@@ -1,6 +1,6 @@
 <div id="wishlist"> <!-- begin wishlist id for styling -->
 	<div class="title-box">
-		<h2 class="title-under text-center text-uppercase"><?php echo HEADING_TITLE . UN_LABEL_DELIMITER . $wishlist->fields['name']; ?></h2>
+		<h2 class="title-under text-center text-uppercase"><?php echo HEADING_TITLE . LABEL_DELIMITER . $wishlist->fields['name']; ?></h2>
 	</div>
 	<div class="alert alert-info alert-dismissable">
 		<button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -15,23 +15,23 @@
         <ul class="simple-list">
             <li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, 'wid='.$id, 'SSL'); ?>">
-					<?php echo UN_TEXT_EMAIL_WISHLIST; ?>
+					<?php echo TEXT_EMAIL_WISHLIST; ?>
                	</a>
            	</li>
             <li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
-					<?php echo UN_TEXT_FIND_WISHLIST; ?>
+					<?php echo TEXT_FIND_WISHLIST; ?>
             	</a>
             </li>
             <li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLISTS, '', 'SSL'); ?>">
-					<?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
+					<?php echo TEXT_MANAGE_WISHLISTS; ?>
                	</a>
            	</li>
             <?php if ( ALLOW_MULTIPLE_WISHLISTS ) { ?>
             <li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$id, 'SSL'); ?>">
-					<?php echo UN_TEXT_WISHLIST_MOVE; ?>
+					<?php echo TEXT_WISHLIST_MOVE; ?>
                	</a>
             </li>
             <?php } ?>
@@ -45,7 +45,7 @@
 
 	<div class="sorter filters-row">
 		<div class="multiple">
-			<label for="sort"><?php echo UN_TEXT_SORT . UN_LABEL_DELIMITER; ?></label>
+			<label for="sort"><?php echo TEXT_SORT . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php 
 					echo zen_draw_pull_down_menu('sort', $aSortOptions, (isset($_GET['sort']) ? $_GET['sort'] : ''), 'class="m" onchange="this.form.submit()"');
@@ -54,17 +54,17 @@
 		</div>
 		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
-			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
+			<label for="cPath"><?php echo TEXT_SHOW . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php
-				echo un_draw_categories_pull_down_menu('cPath', UN_TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
+				echo un_draw_categories_pull_down_menu('cPath', TEXT_ALL_CATEGORIES, (isset($_GET['cPath']) ? $_GET['cPath'] : ''), 'class="m" onchange="this.form.submit()"');
 				?>
 			</div>
 		</div>
 		<?php } ?>
 
 		<div class="multiple">
-			<label for="layout"><?php echo UN_TEXT_VIEW . UN_LABEL_DELIMITER; ?></label>
+			<label for="layout"><?php echo TEXT_VIEW . LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">
 				<?php
 					echo un_draw_view_pull_down_menu('layout', '', (isset($_GET['layout']) ? $_GET['layout'] : ''), 'class="m" onchange="this.form.submit()"');
@@ -118,7 +118,7 @@
 								<div class="product__inside__description row-mode-visible">
 									<?php if ( SHOW_PRODUCT_INFO_DATE_AVAILABLE && ( $products->fields['products_date_available'] > date('Y-m-d H:i:s') ) ) { ?>
 									<div class="notabene">
-										<?php echo sprintf(UN_TEXT_DATE_AVAILABLE, zen_date_short($products->fields['products_date_available'])); ?>
+										<?php echo sprintf(TEXT_DATE_AVAILABLE, zen_date_short($products->fields['products_date_available'])); ?>
 									</div>
 									<?php } ?>
 									<ul>			
@@ -183,23 +183,23 @@
 										<ul>
 											<?php if ( $products->fields['date_added'] ) { ?>
 											<li>
-												<label class="tabbed-m"><?php echo UN_TEXT_DATE_ADDED . UN_LABEL_DELIMITER; ?></label> 
+												<label class="tabbed-m"><?php echo TEXT_DATE_ADDED . LABEL_DELIMITER; ?></label> 
 												<span class="label"><?php echo zen_date_short($products->fields['date_added']); ?></span>
 											</li>
 											<?php } ?>
 											<li>
-												<label class="tabbed-m" for="wishlist_quantity[]"><?php echo UN_TEXT_QUANTITY . UN_LABEL_DELIMITER; ?>
+												<label class="tabbed-m" for="wishlist_quantity[]"><?php echo TEXT_QUANTITY . LABEL_DELIMITER; ?>
 												</label>
 												<?php echo zen_draw_input_field('wishlist_quantity[]', $products->fields['quantity'], 'size="2" maxlength="3" class="xs"'); ?>
 											</li>
 											<li>
-												<label class="tabbed-m" for="comment[]"><?php echo UN_TEXT_COMMENT . UN_LABEL_DELIMITER; ?></label>
+												<label class="tabbed-m" for="comment[]"><?php echo TEXT_COMMENT . LABEL_DELIMITER; ?></label>
 												<?php 
 													echo zen_draw_input_field('comment[]', $products->fields['comment'], 'maxlength="255" class="l"');
 												?>
 											</li>
 											<li>
-												<label class="tabbed-m" for="priority[]"><?php echo UN_TEXT_PRIORITY . UN_LABEL_DELIMITER; ?></label>
+												<label class="tabbed-m" for="priority[]"><?php echo TEXT_PRIORITY . LABEL_DELIMITER; ?></label>
 												<div class="select-wrapper">
 													<?php 
 														echo un_draw_priority_pull_down_menu('priority[]', '', $products->fields['priority'], 'class="l"');
@@ -207,7 +207,7 @@
 												</div>
 											</li>
 										</ul>
-										<?php echo zen_image_submit(UN_BUTTON_IMAGE_SAVE, UN_BUTTON_SAVE_ALT, 'style="margin-top: 0px;"'); ?>
+										<?php echo zen_image_submit(BUTTON_IMAGE_SAVE, BUTTON_SAVE_ALT, 'style="margin-top: 0px;"'); ?>
 									</div> <!-- end div.wishlistfields -->
 									</form><!--end wishlist form--><hr/>
 								</div>
@@ -239,7 +239,7 @@
 														</div>
 														
 												<?php } ?>
-												<?php echo '<a class="btn btn--ys" href="' . zen_href_link($_GET['main_page'], zen_get_all_get_params(array('action')) . 'action=un_remove_wishlist&products_id=' . $products->fields['products_id'], 'SSL') . '" title="'.UN_TEXT_REMOVE_WISHLIST.'">' . zen_image_button(BUTTON_IMAGE_DELETE, BUTTON_DELETE_ALT) . '</a>'; ?>
+												<?php echo '<a class="btn btn--ys" href="' . zen_href_link($_GET['main_page'], zen_get_all_get_params(array('action')) . 'action=un_remove_wishlist&products_id=' . $products->fields['products_id'], 'SSL') . '" title="'.TEXT_REMOVE_WISHLIST.'">' . zen_image_button(BUTTON_IMAGE_DELETE, BUTTON_DELETE_ALT) . '</a>'; ?>
 											</form>
 										</div>
 									</div>
@@ -257,7 +257,7 @@
 	
 <?php } else { ?>
 	<div class="alert alert-danger alert-dismissable">
-		<?php echo UN_TEXT_NO_PRODUCTS; ?>
+		<?php echo TEXT_NO_PRODUCTS; ?>
   	</div>
 	
 <?php } // end if products ?>
