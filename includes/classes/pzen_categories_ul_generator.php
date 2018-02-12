@@ -55,7 +55,8 @@ class pzen_categories_ul_generator {
     
     function buildBranch($parent_id, $level, $submenu=true, $parent_link='')
     {
-		//resoponsive: dropdown-menu megamenu image-links-layout 
+		//responsive: dropdown-menu megamenu image-links-layout
+        $level = (int)$level;
         $pzen_mn['simple'] = sprintf($this->parent_group_start_string, ($submenu==true) ? ' role="menu" class="megamenu__submenu image-links-level-'. ($level+1).' level'. ($level+1) . '"' : '' );
 		$pzen_mn['css_categories'] = sprintf($this->parent_group_start_string, ($submenu==true) ? ' id="accordion-1" class="expander-list accordion level'. ($level+1) . '"' : '' );
 		
