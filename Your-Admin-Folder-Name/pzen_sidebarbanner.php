@@ -14,7 +14,7 @@ if(isset($_REQUEST['submit_pzen_sidebarbanner']))
 	$sidebitem_status = zen_db_prepare_input($_POST['sidebitem_status']);
 	$image_name = zen_db_prepare_input($_FILES['sidebitem_image']['name']);
 	$sidebitem_link = zen_db_prepare_input($_POST['sidebitem_link']);
-	$sres=$db->Execute("SELECT MAX(sort_order) as maxid FROM ". TABLE_PZEN_SIDEBARBANNER." where item_type=".$sidebitem_type) or die(mysql_error());
+	$sres=$db->Execute("SELECT MAX(sort_order) as maxid FROM ". TABLE_PZEN_SIDEBARBANNER." where item_type=".$sidebitem_type) or die(mysqli_error());
 	$maxid=$sres->fields['maxid']+1;
 	if(!is_dir("../includes/templates/" . $template_dir . "/images/banners/"))
 	{
@@ -57,7 +57,7 @@ if(isset($_REQUEST['update_pzen_sidebarbanner']))
 	$image_name = zen_db_prepare_input($_FILES['sidebitem_image']['name']);
 	$sort_order = zen_db_prepare_input($_POST['sort_order']);
 	$sidebeid=$_REQUEST['sidebeid'];
-	$sres=$db->Execute("SELECT MAX(sort_order) as maxid, item_image FROM ".TABLE_PZEN_SIDEBARBANNER." where id='".(int)$sidebeid."'") or die(mysql_error());
+	$sres=$db->Execute("SELECT MAX(sort_order) as maxid, item_image FROM ".TABLE_PZEN_SIDEBARBANNER." where id='".(int)$sidebeid."'") or die(mysqli_error());
 	if(!is_dir("../includes/templates/" . $template_dir . "/images/banners/"))
 	{	
 		mkdir("../includes/templates/" . $template_dir . "/images/banners/");
