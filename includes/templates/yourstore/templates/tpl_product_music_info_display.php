@@ -210,7 +210,7 @@
 							}
 							$display_button = zen_get_buy_now_button($_GET['products_id'], $the_button);
 							
-							if (UN_MODULE_WISHLISTS_ENABLED) { $wishlist_link= '<a title="'.UN_TEXT_ADD_WISHLIST.'" href="' . zen_href_link(UN_FILENAME_WISHLIST, 'products_id=' . $_GET['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="icon icon-favorite_border  tooltip-link"></span><span class="text">'.UN_TEXT_ADD_WISHLIST.'</span></a>';}else{ $wishlist_link='';}
+							if (MODULE_WISHLISTS_ENABLED) { $wishlist_link= '<a title="'.UN_TEXT_ADD_WISHLIST.'" href="' . zen_href_link(FILENAME_WISHLIST, 'products_id=' . $_GET['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="icon icon-favorite_border  tooltip-link"></span><span class="text">'.UN_TEXT_ADD_WISHLIST.'</span></a>';}else{ $wishlist_link='';}
 							
 							$compare_link='';
 							if(COMPARE_VALUE_COUNT > 0){

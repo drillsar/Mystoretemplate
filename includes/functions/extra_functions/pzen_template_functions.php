@@ -892,10 +892,10 @@ function pzen_get_product_content($products_lst, $etc_ar=array(), $type=''){
 	$products_ar['products_new'] = pzen_new_product($products_lst_ar);
 		
 	//wishlist 
-	if (UN_MODULE_WISHLISTS_ENABLED) {
-		$products_ar['wishlist_link']= '<span class="icon icon-favorite_border  tooltip-link"></span><a href="' . zen_href_link(UN_FILENAME_WISHLIST, 'products_id=' . $products_lst_ar['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="text">'.TITLE_ADD_TO_WISHLIST.'</span></a>';
+	if (MODULE_WISHLISTS_ENABLED) {
+		$products_ar['wishlist_link']= '<span class="icon icon-favorite_border  tooltip-link"></span><a href="' . zen_href_link(FILENAME_WISHLIST, 'products_id=' . $products_lst_ar['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="text">'.TITLE_ADD_TO_WISHLIST.'</span></a>';
 		
-		$products_ar['wishlist_link_alt'] = '<a class="btn btn-wishlist btn--ys btn--xl visible-xs" href="' . zen_href_link(UN_FILENAME_WISHLIST, 'products_id=' . $products_lst_ar['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="icon icon-favorite_border"></span></a>';
+		$products_ar['wishlist_link_alt'] = '<a class="btn btn-wishlist btn--ys btn--xl visible-xs" href="' . zen_href_link(FILENAME_WISHLIST, 'products_id=' . $products_lst_ar['products_id'] . '&action=wishlist_add_product', 'SSL') . '"><span class="icon icon-favorite_border"></span></a>';
 	}
 	
 	//compare

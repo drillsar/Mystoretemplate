@@ -32,7 +32,7 @@
 // $Id: tell_a_friend.php 290 2004-09-15 19:48:26Z wilt $
 //
 $display = false;
-if ( isset($_GET['products_id']) && zen_products_id_valid($_GET['products_id']) && (UN_MODULE_WISHLISTS_ENABLED) ) {
+if ( isset($_GET['products_id']) && zen_products_id_valid($_GET['products_id']) && (MODULE_WISHLISTS_ENABLED) ) {
 	if ( !preg_match('/^wishlist/',$_GET['main_page']) ) {
 		$display = true;
 	}
@@ -42,8 +42,8 @@ if ( $display == true ) {
 	$tpl_module_body = 'tpl_wishlist.php';
 	require($template->get_template_dir($tpl_module_body, DIR_WS_TEMPLATE, $current_page_base, 'sideboxes') . '/' . $tpl_module_body);
 	$title =  UN_BOX_HEADING_WISHLIST;
-	if ( UN_DB_SIDEBOX_LINK_HEADER == 'true' ) {
-		$title_link = UN_FILENAME_WISHLIST;
+	if ( SIDEBOX_LINK_HEADER == 'true' ) {
+		$title_link = FILENAME_WISHLIST;
 	} else {
 		$title_link = false;
 	}

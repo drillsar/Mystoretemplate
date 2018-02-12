@@ -16,7 +16,7 @@
 	<?php } ?>
 
 	<!-- search -->
-	<?php echo zen_draw_form('wishlist_find', zen_href_link(UN_FILENAME_WISHLIST_FIND, '', 'SSL')); ?>
+	<?php echo zen_draw_form('wishlist_find', zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL')); ?>
     <?php echo zen_hide_session_id(); ?>
     <?php echo zen_draw_hidden_field('meta-process', 1); ?>
 	<div class="find-wishlist card card--padding">
@@ -50,7 +50,7 @@
 			<?php while (!$records->EOF) { ?>
 				<?php $rows++; ?>
 			<div class="card card--padding">
-            	<h4><?php echo $rows; ?>. <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_FIND, 'wid='.$records->fields['id'], 'SSL'); ?>"><?php echo un_get_fullname($records->fields['customers_firstname'], $records->fields['customers_lastname'], $records->fields['customers_email_address']) . FIND_RESULT_WISHLIST_OWNER; ?></a></h4>
+            	<h4><?php echo $rows; ?>. <a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, 'wid='.$records->fields['id'], 'SSL'); ?>"><?php echo un_get_fullname($records->fields['customers_firstname'], $records->fields['customers_lastname'], $records->fields['customers_email_address']) . FIND_RESULT_WISHLIST_OWNER; ?></a></h4>
 				<ul class="simple-list">
 					<?php $location = un_get_citystate($records->fields['entry_city'], $records->fields['entry_state'], 'Unknown'); ?>
 					<?php if ( !un_is_empty($location) ) { ?>

@@ -18,12 +18,12 @@
     <div class="card card--padding">
         <ul class="simple-list">
             <li>
-                <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
+                <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
                     <?php echo UN_TEXT_NEW_WISHLIST; ?>
                 </a>
             </li>
             <li>
-                <a href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'); ?>">
+                <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, '', 'SSL'); ?>">
                     <?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
                 </a>
             </li>
@@ -32,9 +32,9 @@
 	<?php } ?>
 
     <!-- control -->
-    <?php echo zen_draw_form('control', zen_href_link(UN_FILENAME_WISHLIST_MOVE, '', 'SSL'), 'get', 'class="control"'); ?>
+    <?php echo zen_draw_form('control', zen_href_link(FILENAME_WISHLIST_MOVE, '', 'SSL'), 'get', 'class="control"'); ?>
     <?php echo zen_hide_session_id(); ?>
-    <?php echo zen_draw_hidden_field('main_page', UN_FILENAME_WISHLIST_MOVE); ?>
+    <?php echo zen_draw_hidden_field('main_page', FILENAME_WISHLIST_MOVE); ?>
     <?php echo zen_draw_hidden_field('wid', $id); ?>
     
 	<div class="sorter filters-row">
@@ -60,7 +60,7 @@
 	</form>
     
 	<!-- control -->
-	<?php echo zen_draw_form('wishlist_move', zen_href_link(UN_FILENAME_WISHLIST_MOVE, '', 'SSL')); ?>
+	<?php echo zen_draw_form('wishlist_move', zen_href_link(FILENAME_WISHLIST_MOVE, '', 'SSL')); ?>
 	<?php echo zen_hide_session_id(); ?>
     <?php echo zen_draw_hidden_field('meta-process', 1); ?>
     <?php echo zen_draw_hidden_field('wid', $id); ?>

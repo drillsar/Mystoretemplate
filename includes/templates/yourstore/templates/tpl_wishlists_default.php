@@ -16,13 +16,13 @@
 	<div class="card card--padding">
         <ul class="simple-list">
             <li>
-                <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
+                <a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
                     <?php echo UN_TEXT_FIND_WISHLIST; ?>
                 </a>
             </li>
             <?php if ( UN_ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
             <li>
-                <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
+                <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
                     <?php echo UN_TEXT_NEW_WISHLIST; ?>
                 </a>
             </li>
@@ -48,7 +48,7 @@
 			<div class="card--padding card">
 				<!-- data -->
 				<h4>
-                	<a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST, 'wid='.$records->fields['id'], 'SSL'); ?>">
+                	<a href="<?php echo zen_href_link(FILENAME_WISHLIST, 'wid='.$records->fields['id'], 'SSL'); ?>">
 						<?php echo $records->fields['name']; ?>
                     </a>
               	</h4>
@@ -57,7 +57,7 @@
                         <?php echo TABLE_HEADING_ITEMS . UN_LABEL_DELIMITER . $records->fields['items_count']; ?> 
                         <?php if ( $records->fields['items_count']>0 ) { ?>
                             <?php echo TEXT_ACTION_DELIMITER; ?>
-                            <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_MOVE, 'wid='.$records->fields['id'], 'SSL'); ?>">
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$records->fields['id'], 'SSL'); ?>">
                                 <?php echo TEXT_MOVE; ?>
                                 
                             </a>
@@ -73,24 +73,24 @@
                         <?php } else { ?>
                             <?php echo TEXT_NO; ?> 
                             <?php echo TEXT_ACTION_DELIMITER; ?>
-                            <a href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=default', 'SSL'); ?>" title="<?php echo TEXT_MAKE_DEFAULT; ?>"><?php echo TEXT_MAKE_DEFAULT; ?></a>
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=default', 'SSL'); ?>" title="<?php echo TEXT_MAKE_DEFAULT; ?>"><?php echo TEXT_MAKE_DEFAULT; ?></a>
                         <?php } ?>
                     </li>
                     <li>
                         <?php echo TABLE_HEADING_PUBLIC . UN_LABEL_DELIMITER; ?>
                         <?php if ( $records->fields['public_status']==1 ) { ?>
-                            <a href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=deact', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PRIVATE; ?>"><?php echo TEXT_YES; ?></a> 
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=deact', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PRIVATE; ?>"><?php echo TEXT_YES; ?></a> 
                             <?php echo TEXT_ACTION_DELIMITER; ?>
-                            <a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_EMAIL, 'wid='.$records->fields['id'], 'SSL'); ?>" title="<?php echo UN_TEXT_EMAIL_WISHLIST; ?>"><?php echo UN_TEXT_EMAIL_WISHLIST; ?></a>
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, 'wid='.$records->fields['id'], 'SSL'); ?>" title="<?php echo UN_TEXT_EMAIL_WISHLIST; ?>"><?php echo UN_TEXT_EMAIL_WISHLIST; ?></a>
                         <?php } else { ?>
-                            <a href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=act', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PUBLIC; ?>"><?php echo TEXT_NO; ?></a>
+                            <a href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=act', 'SSL'); ?>" title="<?php echo TEXT_MAKE_PUBLIC; ?>"><?php echo TEXT_NO; ?></a>
                         <?php } ?>
                     </li>
                 </ul>
                 <!-- buttons -->
                 <div class="buttons" style="float:none;margin-top:10px;text-align:left">
-                    <a class="btn btn--ys" href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_EDIT, 'wid='.$records->fields['id'].'&op=edit', 'SSL'); ?>" title="<?php echo BUTTON_EDIT_SMALL_ALT; ?>"><?php echo zen_image_button(BUTTON_IMAGE_EDIT_SMALL, BUTTON_EDIT_SMALL_ALT, ''); ?></a>
-                    <a class="btn btn--ys" href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=del', 'SSL'); ?>" title="<?php echo  BUTTON_DELETE_SMALL_ALT; ?>"><?php echo zen_image_button(BUTTON_IMAGE_DELETE_SMALL, BUTTON_DELETE_SMALL_ALT, ''); ?></a>
+                    <a class="btn btn--ys" href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'wid='.$records->fields['id'].'&op=edit', 'SSL'); ?>" title="<?php echo BUTTON_EDIT_SMALL_ALT; ?>"><?php echo zen_image_button(BUTTON_IMAGE_EDIT_SMALL, BUTTON_EDIT_SMALL_ALT, ''); ?></a>
+                    <a class="btn btn--ys" href="<?php echo zen_href_link(FILENAME_WISHLISTS, 'wid='.$records->fields['id'].'&op=del', 'SSL'); ?>" title="<?php echo  BUTTON_DELETE_SMALL_ALT; ?>"><?php echo zen_image_button(BUTTON_IMAGE_DELETE_SMALL, BUTTON_DELETE_SMALL_ALT, ''); ?></a>
                 </div>
 			</div>
 		</div> <!-- end div.wishlist -->

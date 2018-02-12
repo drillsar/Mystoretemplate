@@ -36,7 +36,7 @@ switch ($_GET['action']) {
 				$oWishlist->addProduct((int)$_GET['products_id'], $attributes);
 			}
 				if ( DISPLAY_WISHLIST == 'true' ) {
-				zen_redirect(zen_href_link(UN_FILENAME_WISHLIST));
+				zen_redirect(zen_href_link(FILENAME_WISHLIST));
       		} else {
 	      		$messageStack->add_session('header', SUCCESS_ADDED_TO_WISHLIST_PRODUCT, 'success');
       			zen_redirect(zen_href_link(zen_get_info_page($_GET['products_id']), 'products_id=' . $_GET['products_id']));
@@ -62,7 +62,7 @@ switch ($_GET['action']) {
 				
 			}
 			if ( DISPLAY_WISHLIST == 'true' ) {
-				zen_redirect(zen_href_link(UN_FILENAME_WISHLIST));
+				zen_redirect(zen_href_link(FILENAME_WISHLIST));
       		} else {
 	      		$messageStack->add_session('header', SUCCESS_ADDED_TO_WISHLIST_PRODUCT, 'success');
       			zen_redirect(zen_href_link(zen_get_info_page($_GET['products_id']), 'products_id=' . $_GET['products_id']));
@@ -79,7 +79,7 @@ switch ($_GET['action']) {
 				$oWishlist->removeProduct($_GET['products_id']);
 				
 			}
-			zen_redirect(zen_href_link(UN_FILENAME_WISHLIST));
+			zen_redirect(zen_href_link(FILENAME_WISHLIST));
 			break;
 
 // Update wishlist							
@@ -104,7 +104,7 @@ switch ($_GET['action']) {
 			if ( $cart_updated == true ) {
 				zen_redirect(zen_href_link($goto, zen_get_all_get_params($parameters)));
 			} else {
-				zen_redirect(zen_href_link(UN_FILENAME_WISHLIST, zen_get_all_get_params($parameters)));
+				zen_redirect(zen_href_link(FILENAME_WISHLIST, zen_get_all_get_params($parameters)));
 			}
 			break;
 }

@@ -13,7 +13,7 @@ $id = isset($_REQUEST['wid']) ? (int) $_REQUEST['wid'] : '';
 if ( ! un_is_empty($id) ) {
 	$oWishlist->setWishlistId($id);
 	if ( ! $oWishlist->hasPermission() ) {
-		zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'));
+		zen_redirect(zen_href_link(FILENAME_WISHLISTS, '', 'SSL'));
 	}
 } else {
 	$id = $oWishlist->getDefaultWishlistId();
@@ -46,7 +46,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 			$email_body .= $message . "\n\n" . EMAIL_SEPARATOR . "\n\n";
 		}
 		
-		$email_body .= sprintf(TEXT_EMAIL_LINK, $from_name,  zen_href_link(UN_FILENAME_WISHLIST_FIND, 'wid=' . $id, 'NONSSL', false));
+		$email_body .= sprintf(TEXT_EMAIL_LINK, $from_name,  zen_href_link(FILENAME_WISHLIST_FIND, 'wid=' . $id, 'NONSSL', false));
 		$email_body .= "\n\n";
 		$email_body .= sprintf(TEXT_EMAIL_SIGNATURE, STORE_NAME, HTTP_SERVER . DIR_WS_CATALOG, $from_name);
 
@@ -77,7 +77,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
 
 		$messageStack->add_session('header', TEXT_SUCCESS, 'success');
 		
-		zen_redirect(zen_href_link(UN_FILENAME_WISHLIST), '', 'SSL');
+		zen_redirect(zen_href_link(FILENAME_WISHLIST), '', 'SSL');
 	}
 }
 $breadcrumb->add(NAVBAR_TITLE);

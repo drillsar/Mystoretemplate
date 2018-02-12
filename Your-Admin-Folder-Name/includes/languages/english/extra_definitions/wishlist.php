@@ -1,2 +1,2 @@
 <?php 
-define('UN_BOX_WISHLISTS', 'Wishlists');
+define('BOX_WISHLISTS', 'Wishlists');

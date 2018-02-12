@@ -14,7 +14,7 @@
 
 	<div class="alert-text forward"><?php echo FORM_REQUIRED_INFORMATION; ?></div>
 
-	<?php echo zen_draw_form('wishlist_email', zen_href_link(UN_FILENAME_WISHLIST_EMAIL, 'action=process', 'SSL')); ?>
+	<?php echo zen_draw_form('wishlist_email', zen_href_link(FILENAME_WISHLIST_EMAIL, 'action=process', 'SSL')); ?>
 	<?php echo zen_draw_hidden_field('wid', $id); ?>
 	<div class="send-mail card card--padding">
 		<h4><?php echo FORM_TITLE; ?></h4>
@@ -31,7 +31,7 @@
 			</div>
 		</div> <!-- end group -->
         <div class="buttons">
-			<?php echo '<a href="' . zen_href_link(UN_FILENAME_WISHLIST, zen_get_all_get_params(), 'SSL') . '">' . zen_image_button(BUTTON_IMAGE_BACK, BUTTON_BACK_ALT) . '</a>'; ?>
+			<?php echo '<a href="' . zen_href_link(FILENAME_WISHLIST, zen_get_all_get_params(), 'SSL') . '">' . zen_image_button(BUTTON_IMAGE_BACK, BUTTON_BACK_ALT) . '</a>'; ?>
             <?php echo zen_image_submit(BUTTON_IMAGE_TELLAFRIEND, BUTTON_TELL_A_FRIEND_ALT, 'class="button-l"'); ?>
         </div>
 	</div>

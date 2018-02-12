@@ -86,7 +86,7 @@ if (!isset($flag_disable_header) || !$flag_disable_header) {
 								<li>
 									<a class='my_account' href="<?php echo zen_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo HEADER_TITLE_ACCOUNT; ?></a>
 								</li>
-								<?php if (UN_MODULE_WISHLISTS_ENABLED) { ?>
+								<?php if (MODULE_WISHLISTS_ENABLED) { ?>
 								<li>
 									<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>"><?php echo HEADER_TITLE_WISHLIST; ?></a>
 								</li>
@@ -164,7 +164,7 @@ if (!isset($flag_disable_header) || !$flag_disable_header) {
 											<li>
 												<a class='my_account' href="<?php echo zen_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>"><?php echo HEADER_TITLE_ACCOUNT; ?></a>
 											</li>
-											<?php if (UN_MODULE_WISHLISTS_ENABLED) { ?>
+											<?php if (MODULE_WISHLISTS_ENABLED) { ?>
 											<li>
 												<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>"><?php echo HEADER_TITLE_WISHLIST; ?></a>
 											</li>

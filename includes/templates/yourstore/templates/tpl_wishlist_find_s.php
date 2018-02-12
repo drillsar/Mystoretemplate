@@ -7,9 +7,9 @@
 	</div>
     
     <!-- control -->
-    <?php echo zen_draw_form('control', zen_href_link(UN_FILENAME_WISHLIST_FIND, '', 'SSL'), 'get', 'class="control"'); ?>
+    <?php echo zen_draw_form('control', zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'), 'get', 'class="control"'); ?>
     <?php echo zen_hide_session_id(); ?>
-    <?php echo zen_draw_hidden_field('main_page', UN_FILENAME_WISHLIST_FIND); ?>
+    <?php echo zen_draw_hidden_field('main_page', FILENAME_WISHLIST_FIND); ?>
     <?php echo zen_draw_hidden_field('wid', $wid); ?>
 	
 	<div class="sorter filters-row">
@@ -44,7 +44,7 @@
      </form>
 		<!-- control -->
 
-	<?php echo zen_draw_form('wishlist', zen_href_link(UN_FILENAME_WISHLIST_FIND, zen_get_all_get_params(array('action')) . 'action=multiple_products_add_product', 'SSL')); ?>
+	<?php echo zen_draw_form('wishlist', zen_href_link(FILENAME_WISHLIST_FIND, zen_get_all_get_params(array('action')) . 'action=multiple_products_add_product', 'SSL')); ?>
      <?php echo zen_hide_session_id(); ?>
      <?php echo zen_draw_hidden_field('layout', isset($_REQUEST['layout'])? $_REQUEST['layout']: ''); ?>
      <?php echo zen_draw_hidden_field('wid', $wid); ?>

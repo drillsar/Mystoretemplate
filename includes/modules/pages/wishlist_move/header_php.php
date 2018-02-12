@@ -5,7 +5,7 @@ if ( !$_SESSION['customer_id'] ) {
 }
 
 if ( UN_ALLOW_MULTIPLE_WISHLISTS!==true ) {
-	zen_redirect(zen_href_link(UN_FILENAME_WISHLIST, '', 'SSL'));
+	zen_redirect(zen_href_link(FILENAME_WISHLIST, '', 'SSL'));
 }
 
 // Get wishlist class and instantiate
@@ -17,7 +17,7 @@ $id = isset($_REQUEST['wid']) ? (int) $_REQUEST['wid'] : '';
 if ( ! un_is_empty($id) ) {
 	$oWishlist->setWishlistId($id);
 	if ( ! $oWishlist->hasPermission() ) {
-		zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'));
+		zen_redirect(zen_href_link(FILENAME_WISHLISTS, '', 'SSL'));
 	}
 } else {
 	$id = $oWishlist->getDefaultWishlistId();

@@ -1,14 +1,14 @@
 <?php
 // control multiple wishlist functionality
-if(UN_DB_MODULE_WISHLISTS_ENABLED == 'true'){
-	define('UN_MODULE_WISHLISTS_ENABLED', true);
+if(MODULE_WISHLISTS_ENABLED == 'true'){
+	define('MODULE_WISHLISTS_ENABLED', true);
 } else {
-	define('UN_MODULE_WISHLISTS_ENABLED', false);}
-if(UN_DB_ALLOW_MULTIPLE_WISHLISTS == 'true'){
+	define('MODULE_WISHLISTS_ENABLED', false);}
+if(ALLOW_MULTIPLE_WISHLISTS == 'true'){
 	define('UN_ALLOW_MULTIPLE_WISHLISTS', true);
 } else {
 	define('UN_ALLOW_MULTIPLE_WISHLISTS', false);}
-if(UN_DB_DISPLAY_CATEGORY_FILTER == 'true'){
+if(DISPLAY_CATEGORY_FILTER == 'true'){
 	define('UN_DISPLAY_CATEGORY_FILTER', true);
 } else {
 	define('UN_DISPLAY_CATEGORY_FILTER', false);}

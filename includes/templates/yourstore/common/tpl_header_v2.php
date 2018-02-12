@@ -118,7 +118,7 @@ if (!isset($flag_disable_header) || !$flag_disable_header) {
                                         <span class="icon icon-person"></span><?php echo HEADER_TITLE_MY_ACCOUNT; ?>
                                     </a>
                                 </li>
-                                <?php if (UN_MODULE_WISHLISTS_ENABLED) { ?>
+                                <?php if (MODULE_WISHLISTS_ENABLED) { ?>
 								<li>
 									<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>">
 										<span class="icon icon-favorite_border"></span><?php echo HEADER_TITLE_WISHLIST; ?>
@@ -161,7 +161,7 @@ if (!isset($flag_disable_header) || !$flag_disable_header) {
                                 	<span class="icon icon-person"></span><?php echo HEADER_TITLE_MY_ACCOUNT; ?>
                                 </a>
                             </li>
-                            <?php if (UN_MODULE_WISHLISTS_ENABLED) { ?>
+                            <?php if (MODULE_WISHLISTS_ENABLED) { ?>
 							<li>
 								<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>">
 									<span class="icon icon-favorite_border"></span><?php echo HEADER_TITLE_WISHLIST; ?>

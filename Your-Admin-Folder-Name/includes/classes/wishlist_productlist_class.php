@@ -330,7 +330,7 @@ class un_productlist {
 	}
 	
 	function _dispatchAction($map, $data) {
-		$value = '<a href="' . zen_href_link(UN_FILENAME_WISHLIST, 'wid=' . $_REQUEST['wid'] . '&products_id=' . $data->fields['products_id'] . '&action=delete') . '" onclick="javascript:return confirm(\'Are you sure you want to Delete this record?\')">' . zen_image(DIR_WS_IMAGES . 'icon_delete.gif', ICON_DELETE) . '</a>';
+		$value = '<a href="' . zen_href_link(FILENAME_WISHLIST, 'wid=' . $_REQUEST['wid'] . '&products_id=' . $data->fields['products_id'] . '&action=delete') . '" onclick="javascript:return confirm(\'Are you sure you want to Delete this record?\')">' . zen_image(DIR_WS_IMAGES . 'icon_delete.gif', ICON_DELETE) . '</a>';
 		return $value;
 	}
 	

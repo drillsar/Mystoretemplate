@@ -14,23 +14,23 @@
 	<div class="card card--padding">
         <ul class="simple-list">
             <li>
-            	<a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_EMAIL, 'wid='.$id, 'SSL'); ?>">
+            	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, 'wid='.$id, 'SSL'); ?>">
 					<?php echo UN_TEXT_EMAIL_WISHLIST; ?>
                	</a>
            	</li>
             <li>
-            	<a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
+            	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'); ?>">
 					<?php echo UN_TEXT_FIND_WISHLIST; ?>
             	</a>
             </li>
             <li>
-            	<a href="<?php echo zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'); ?>">
+            	<a href="<?php echo zen_href_link(FILENAME_WISHLISTS, '', 'SSL'); ?>">
 					<?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
                	</a>
            	</li>
             <?php if ( UN_ALLOW_MULTIPLE_WISHLISTS ) { ?>
             <li>
-            	<a href="<?php echo zen_href_link(UN_FILENAME_WISHLIST_MOVE, 'wid='.$id, 'SSL'); ?>">
+            	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$id, 'SSL'); ?>">
 					<?php echo UN_TEXT_WISHLIST_MOVE; ?>
                	</a>
             </li>
@@ -38,9 +38,9 @@
         </ul>
 	</div>
 	<!-- control -->
-	<?php echo zen_draw_form('control', zen_href_link(UN_FILENAME_WISHLIST, '', 'SSL'), 'get', 'class="control"'); ?>	
+	<?php echo zen_draw_form('control', zen_href_link(FILENAME_WISHLIST, '', 'SSL'), 'get', 'class="control"'); ?>	
 	<?php echo zen_hide_session_id(); ?>
-	<?php echo zen_draw_hidden_field('main_page', UN_FILENAME_WISHLIST); ?>
+	<?php echo zen_draw_hidden_field('main_page', FILENAME_WISHLIST); ?>
 	<?php echo zen_draw_hidden_field('wid', $id); ?>
 
 	<div class="sorter filters-row">
@@ -82,7 +82,7 @@
 		$rows = 0;
 		$products = $db->Execute($listing_split->sql_query);
 		while (!$products->EOF) {
-			//echo zen_draw_form('cart_quantity', zen_href_link(UN_FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=add_product'));
+			//echo zen_draw_form('cart_quantity', zen_href_link(FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=add_product'));
 			echo zen_hide_session_id();
 			echo zen_draw_hidden_field('layout', isset($_REQUEST['layout'])? $_REQUEST['layout']: '');
 			if ( $rows & 1 ) {
@@ -170,7 +170,7 @@
 											}
 										?>
 									</ul>
-									<?php echo zen_draw_form('wishlist', zen_href_link(UN_FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=un_update_wishlist', 'SSL')); ?>
+									<?php echo zen_draw_form('wishlist', zen_href_link(FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=un_update_wishlist', 'SSL')); ?>
 									<?php echo zen_hide_session_id(); ?>
 									<?php echo zen_draw_hidden_field('layout', isset($_REQUEST['layout'])? $_REQUEST['layout']: ''); ?>
 									<div class="wishlistfields">
@@ -229,7 +229,7 @@
 														
 												$display_button = zen_get_buy_now_button($products->fields['products_id'], $the_button);
 											  ?>
-											<?php echo zen_draw_form('cart_quantity', zen_href_link(UN_FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=add_product')); ?>
+											<?php echo zen_draw_form('cart_quantity', zen_href_link(FILENAME_WISHLIST, zen_get_all_get_params(array('action'), 'SSL') . 'action=add_product')); ?>
 												<?php if ($display_qty != '' or $display_button != '') { ?>
 														<div class="btn btn--ys extendedCart">
 														<?php

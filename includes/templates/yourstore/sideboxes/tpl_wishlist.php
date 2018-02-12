@@ -8,8 +8,8 @@
 $content = '';
 if ( $_SESSION['customer_id'] ) {
 
-	$content .= zen_draw_form('wishlist_sidebox', zen_href_link(UN_FILENAME_WISHLIST, '', 'NONSSL'), 'get');
-	$content .= zen_draw_hidden_field('main_page', UN_FILENAME_WISHLIST);
+	$content .= zen_draw_form('wishlist_sidebox', zen_href_link(FILENAME_WISHLIST, '', 'NONSSL'), 'get');
+	$content .= zen_draw_hidden_field('main_page', FILENAME_WISHLIST);
 	$content .= zen_hide_session_id();
 	$content .= zen_draw_hidden_field('action','un_add_wishlist');
 	$content .= zen_draw_hidden_field('products_id', (int)$_GET['products_id']);

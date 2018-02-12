@@ -6,7 +6,7 @@
 					<?php echo FOOTER_TITLE_ORDER_HISTORY; ?>
 				</a>
 			</li>
-			<?php if (UN_MODULE_WISHLISTS_ENABLED) { ?>
+			<?php if (MODULE_WISHLISTS_ENABLED) { ?>
 			<li>
 				<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>">
 					<?php echo HEADER_TITLE_WISHLIST; ?>

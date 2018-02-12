@@ -5,7 +5,7 @@ if ( !$_SESSION['customer_id'] ) {
 }
 
 if ( !UN_ALLOW_MULTIPLE_WISHLISTS ) {
-	//zen_redirect(zen_href_link(UN_FILENAME_WISHLIST, '', 'SSL'));
+	//zen_redirect(zen_href_link(FILENAME_WISHLIST, '', 'SSL'));
 }
 
 require(DIR_WS_MODULES . 'require_languages.php');
@@ -30,7 +30,7 @@ if ( isset($_GET['wid']) && !un_is_empty($_GET['wid']) ) {
         // try delete wishlist and redirect
         $success = $oWishlist->deleteWishlist();
         if ( $success===true ) {
-			zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
+			zen_redirect(zen_href_link(FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
 		}
         
     } elseif (!strcmp($op, 'act')) {
@@ -38,7 +38,7 @@ if ( isset($_GET['wid']) && !un_is_empty($_GET['wid']) ) {
         // try to make publice
         $success = $oWishlist->makePublic();
         if ( $success===true ) {
-			zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
+			zen_redirect(zen_href_link(FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
 		}
         
     } elseif (!strcmp($op, 'deact')) {
@@ -46,7 +46,7 @@ if ( isset($_GET['wid']) && !un_is_empty($_GET['wid']) ) {
         // try to make private
         $success = $oWishlist->makePrivate();
         if ( $success===true ) {
-			zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
+			zen_redirect(zen_href_link(FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
 		}
 		
     } elseif (!strcmp($op, 'default')) {
@@ -54,7 +54,7 @@ if ( isset($_GET['wid']) && !un_is_empty($_GET['wid']) ) {
         // try to make private
         $success = $oWishlist->makeDefault();
         if ( $success===true ) {
-			zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
+			zen_redirect(zen_href_link(FILENAME_WISHLISTS, zen_get_all_get_params(array('op', 'wid')), 'SSL'));
 		}		
     }
 }

@@ -24,7 +24,7 @@
         echo $messageStack->output('un_wishlist_edit'); 
     } ?>
 	
-	<?php echo zen_draw_form('un_wishlist_edit', zen_href_link(UN_FILENAME_WISHLIST_EDIT, '', 'SSL')); ?>
+	<?php echo zen_draw_form('un_wishlist_edit', zen_href_link(FILENAME_WISHLIST_EDIT, '', 'SSL')); ?>
     <?php echo zen_draw_hidden_field('meta-process', 1); ?>
     <?php echo zen_draw_hidden_field('op', $_GET['op']); ?>
     <?php echo zen_draw_hidden_field('wid', $_GET['wid']); ?>

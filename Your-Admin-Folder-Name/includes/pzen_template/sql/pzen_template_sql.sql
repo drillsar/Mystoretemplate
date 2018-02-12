@@ -424,10 +424,10 @@ INSERT INTO configuration_group (configuration_group_id, configuration_group_tit
 SET @configuration_group_id=last_insert_id();
 UPDATE configuration_group SET sort_order = @configuration_group_id WHERE configuration_group_id = @configuration_group_id;
 
-INSERT INTO configuration VALUES (NULL, 'Wishlist Module Switch', 'UN_DB_MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @configuration_group_id, 10, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
-INSERT INTO configuration VALUES (NULL, 'Wishlist sidebox header link', 'UN_DB_SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @configuration_group_id, 11, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
-INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple lists', 'UN_DB_ALLOW_MULTIPLE_WISHLISTS', 'true', 'Set this option true or false to allow for more than 1 wishlist', @configuration_group_id, 12, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
-INSERT INTO configuration VALUES (NULL, 'Wishlist display category filter', 'UN_DB_DISPLAY_CATEGORY_FILTER', 'false', 'Set this option true or false to enable a category filter', @configuration_group_id, 13, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist Module Switch', 'MODULE_WISHLISTS_ENABLED', 'true', 'Set this option true or false to enable or disable the wishlist', @configuration_group_id, 10, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist sidebox header link', 'SIDEBOX_LINK_HEADER', 'true', 'Set this option true or false to make the sidebox header a link to the wishlist page.', @configuration_group_id, 11, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple lists', 'ALLOW_MULTIPLE_WISHLISTS', 'true', 'Set this option true or false to allow for more than 1 wishlist', @configuration_group_id, 12, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist display category filter', 'DISPLAY_CATEGORY_FILTER', 'false', 'Set this option true or false to enable a category filter', @configuration_group_id, 13, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
 INSERT INTO configuration VALUES (NULL, 'Wishlist default name', 'DEFAULT_WISHLIST_NAME', 'Default', 'Enter the name you want to be assigned to the initial wishlist.', @configuration_group_id, 14, now(), now(), NULL, NULL);
 INSERT INTO configuration VALUES (NULL, 'Wishlist show list after product addition', 'DISPLAY_WISHLIST', 'false', 'Set this option true or false to show the wishlist after a product was added to the wishlist', @configuration_group_id, 15, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
 INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in extended view', 'UN_MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @configuration_group_id, 16, now(), now(), NULL, NULL);
@@ -439,7 +439,7 @@ INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple products to car
 INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISHLIST','FILENAME_CONFIGURATION',CONCAT('gID=',@configuration_group_id),'configuration','Y',@configuration_group_id);
 
 # Register the extras page for Admin Access Control
-INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'UN_BOX_WISHLISTS', 'UN_FILENAME_WISHLISTS', '', 'extras', 'Y', @configuration_group_id);  
+INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'BOX_WISHLISTS', 'FILENAME_WISHLISTS', '', 'extras', 'Y', @configuration_group_id);  
 
 DROP TABLE IF EXISTS un_wishlists;
 CREATE TABLE IF NOT EXISTS un_wishlists (

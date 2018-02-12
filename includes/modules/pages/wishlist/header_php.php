@@ -13,7 +13,7 @@ $id = isset($_REQUEST['wid']) ? (int) $_REQUEST['wid'] : '';
 if ( ! un_is_empty($id) ) {
 	$oWishlist->setWishlistId($id);
 	if ( ! $oWishlist->hasPermission() ) {
-		zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'));
+		zen_redirect(zen_href_link(FILENAME_WISHLISTS, '', 'SSL'));
 	}
 } else {
 	$id = $oWishlist->getDefaultWishlistId();

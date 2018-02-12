@@ -5,7 +5,7 @@ zen_redirect(zen_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
 if ( UN_ALLOW_MULTIPLE_WISHLISTS!==true ) {
-	zen_redirect(zen_href_link(UN_FILENAME_WISHLIST, '', 'SSL'));
+	zen_redirect(zen_href_link(FILENAME_WISHLIST, '', 'SSL'));
 }
 
 require(DIR_WS_MODULES . 'require_languages.php');
@@ -51,7 +51,7 @@ if ( un_check_html_form('wishlist_edit') ) {
 	}	
 	// redirect if successful
 	if ($success) {
-		zen_redirect(zen_href_link(UN_FILENAME_WISHLISTS, '', 'SSL'));
+		zen_redirect(zen_href_link(FILENAME_WISHLISTS, '', 'SSL'));
 		$success = true;
 	}    
 } else {
