@@ -14,24 +14,11 @@
  ?>
  <?php
  if ($flag_show_product_info_additional_images != 0 && $num_images > 0) {
-		
-		/*if($prodinfo_image_effects==2){
-			unset($list_box_contents[0][0]);
-			$list_box_contents[0] = array_values($list_box_contents[0]);
-		}*/
-		for($row=0;$row<sizeof($list_box_contents);$row++)
-		{
-			$params = "";
-			//if (isset($list_box_contents[$row]['params'])) $params .= ' ' . $list_box_contents[$row]['params'];
-			for($col=0;$col<sizeof($list_box_contents[$row]);$col++) 
-			{
-					$r_params = "";
-				if (isset($list_box_contents[$row][$col]['params'])) $r_params .= ' ' . (string)$list_box_contents[$row][$col]['params'];
-				if (isset($list_box_contents[$row][$col]['text']['thumb'])) 
-				{ 
-					echo '<li' . $r_params . '>' . $list_box_contents[$row][$col]['text']['thumb'] .  '</li>';
-				}
-			}
-		}
+  ?>
+<div id="productAdditionalImages">
+<?php
+  require($template->get_template_dir('tpl_columnar_display.php',DIR_WS_TEMPLATE, $current_page_base,'common'). '/tpl_columnar_display.php'); ?>
+</div>
+<?php 
   }
 ?>

@@ -530,13 +530,13 @@ function pzen_get_additional_images($products_ar , $width='', $height=''){
 			}
 		  }
 		}
-		if (sizeof($images_array)) {
+		if (count($images_array)) {
 		  sort($images_array);
 		}
 		$dir->close();
 	  }
 	}
-	$num_images = sizeof($images_array);
+	$num_images = count($images_array);
 	// Build output based on images found
 	if($dis_addimgs_type==2){
 		$num_images=($num_images > 1) ? 1 : $num_images;
@@ -544,7 +544,7 @@ function pzen_get_additional_images($products_ar , $width='', $height=''){
 		$max_additionalimg = (int)($prodlist_nums_addimgs);
 		$num_images = ($num_images > $max_additionalimg) ? $max_additionalimg : $num_images;
 	}
-	$list_box_contents = '';
+	$list_box_contents = array();
 	$title = '';
 	if ($num_images && $dis_addimgs_type!=1) {
 	  $row = 0;

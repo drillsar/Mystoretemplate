@@ -126,7 +126,12 @@ if ($num_images > 0) {
         $flag_display_large = (IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE == 'Yes' || $flag_has_large);
         $base_image = $products_image_directory . $file;
         $thumb_slashes = zen_image(addslashes($base_image), addslashes($products_name), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);
-        
+// bof Zen Lightbox 2008-12-11 aclarke
+	if (function_exists('handle_image')) {
+	// remove additional single quotes from image attributes (important!)
+    $thumb_slashes = preg_replace("/([^\\\\])'/", '$1\\\'', $thumb_slashes);
+	}
+	// eof Zen Lightbox 2008-12-11 aclarke        
 //-bof-image_handler-lat9  *** 3 of 4 ***
         // -----
         // This notifier lets any image-handler "massage" the name of the current thumbnail image name (with appropriate
@@ -142,6 +147,16 @@ if ($num_images > 0) {
         $large_link = zen_href_link(FILENAME_POPUP_IMAGE_ADDITIONAL, 'pID=' . $_GET['products_id'] . '&pic=' . $i . '&products_image_large_additional=' . $products_image_large);
 
         // Link Preparation:
+// bof Zen Lightbox 2008-12-11 aclarke
+	if (ZEN_LIGHTBOX_STATUS == 'true') {
+	  if (ZEN_LIGHTBOX_GALLERY_MODE == 'true') {
+	    $rel = 'lightbox-g';
+	  } else {
+	    $rel = 'lightbox';
+	  }
+    $script_link = '<script language="javascript" type="text/javascript"><!--' . "\n" . 'document.write(\'' . ($flag_display_large ? '<a href="' . zen_lightbox($products_image_large, addslashes($products_name), LARGE_IMAGE_WIDTH, LARGE_IMAGE_HEIGHT) . '" rel="' . $rel . '" title="' . addslashes($products_name) . '">' . $thumb_slashes . '<br />' . TEXT_CLICK_TO_ENLARGE . '</a>' : $thumb_slashes) . '\');' . "\n" . '//--></script>';
+	} else {
+	// eof Zen Lightbox 2008-12-11 aclarke
 //-bof-image_handler-lat9  *** 4 of 4 ***
         // -----
         // This notifier gives notice that an additional image's script link is requested.  A monitoring observer sets
@@ -152,6 +167,7 @@ if ($num_images > 0) {
         // $p2 ... (r/w) ... A reference to the $script_link value, set here to boolean false; if an observer modifies that value, the
         //                     this module's processing is bypassed.
         //
+
         $script_link = false;
         $zco_notifier->notify(
             'NOTIFY_MODULES_ADDITIONAL_IMAGES_SCRIPT_LINK',
