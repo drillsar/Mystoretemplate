@@ -8,7 +8,7 @@
  * @version $Id: init_tm_config.php 2.3.3b 7/12/2014 mc12345678 $
  */
 
-//$messageStack->add('Testimonials Manager v1.5.4 install started','success');
+//$messageStack->add('Testimonials Manager v1.5.5 install started','success');
 
 $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
   testimonials_id int(11) NOT NULL auto_increment,
@@ -119,7 +119,7 @@ $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
     $db->Execute($sql);
     $sql = "INSERT INTO ".DB_PREFIX."configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Define Testimonial Status', 'DEFINE_TESTIMONIAL_STATUS', '1', 'Enable the Defined Testimonial Link/Text?<br />0= Link ON, Define Text OFF<br />1= Link ON, Define Text ON<br />2= Link OFF, Define Text ON<br />3= Link OFF, Define Text OFF', '".$tm_configuration_id."', 20, NULL, now(), NULL, 'zen_cfg_select_option(array(''0'', ''1'', ''2'', ''3''),')";
     $db->Execute($sql);
-    $sql = "INSERT INTO ".DB_PREFIX."configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Testimonial Manager Version', 'TM_VERSION', '1.5.4', 'Testimonial Manager version', '".$tm_configuration_id."', 21, NULL, now(), NULL, NULL)";
+    $sql = "INSERT INTO ".DB_PREFIX."configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Testimonial Manager Version', 'TM_VERSION', '1.5.5', 'Testimonial Manager version', '".$tm_configuration_id."', 21, NULL, now(), NULL, NULL)";
     $db->Execute($sql);
 
    if(file_exists(DIR_FS_ADMIN . DIR_WS_INCLUDES . 'auto_loaders/config.tm.php'))
@@ -130,7 +130,7 @@ $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
 	};
     }
 
-       $messageStack->add('Testimonials Manager v1.5.4 install completed!','success');
+       $messageStack->add('Testimonials Manager v1.5.5 install completed!','success');
 
     // find next sort order in admin_pages table
     $sql = "SELECT (MAX(sort_order)+2) as sort FROM ".TABLE_ADMIN_PAGES;

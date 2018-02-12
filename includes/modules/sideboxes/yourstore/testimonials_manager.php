@@ -13,7 +13,7 @@ $show_testimonials_manager = true;
 
 
 if ($show_testimonials_manager == true) {
-$page_query = $db->Execute("select testimonials_id, testimonials_image, testimonials_title, testimonials_name, testimonials_html_text, date_added  from " . TABLE_TESTIMONIALS_MANAGER . " where status = 1  and language_id = " . (int)$_SESSION['languages_id'] . " order by rand(), testimonials_title limit " . MAX_DISPLAY_TESTIMONIALS_MANAGER_TITLES ."");
+$page_query = $db->Execute("select testimonials_id, testimonials_image, testimonials_title, testimonials_html_text, date_added  from " . TABLE_TESTIMONIALS_MANAGER . " where status = 1  and language_id = " . (int)$_SESSION['languages_id'] . " order by rand(), testimonials_title limit " . MAX_DISPLAY_TESTIMONIALS_MANAGER_TITLES ."");
 if ($page_query->RecordCount()>0) {
       $title =  BOX_HEADING_TESTIMONIALS_MANAGER;
       $box_id =  testimonials_manager;
@@ -22,7 +22,6 @@ if ($page_query->RecordCount()>0) {
         $rows++;
         $page_query_list[$rows]['id'] = $page_query->fields['testimonials_id'];
         $page_query_list[$rows]['name']  = $page_query->fields['testimonials_title'];
-        $page_query_list[$rows]['by']  = $page_query->fields['testimonials_name'];
         $page_query_list[$rows]['story']  = $page_query->fields['testimonials_html_text'];
 		$page_query_list[$rows]['image'] = $page_query->fields['testimonials_image'];
 
