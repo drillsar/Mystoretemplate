@@ -14,7 +14,7 @@
     }
     ?>
 
-	<?php if ( UN_ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
+	<?php if ( ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
     <div class="card card--padding">
         <ul class="simple-list">
             <li>
@@ -46,7 +46,7 @@
 				?>
 			</div>
 		</div>
-		<?php if ( UN_DISPLAY_CATEGORY_FILTER===true ) { ?>
+		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
 			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">

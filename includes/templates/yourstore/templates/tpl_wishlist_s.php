@@ -28,7 +28,7 @@
 					<i class="fa fa-arrow-circle-right"></i><?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
                 </a>
           	</li>
-			<?php if ( UN_ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
+			<?php if ( ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
 			<li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$id, 'SSL'); ?>">
 					<i class="fa fa-arrow-circle-right"></i><?php echo UN_TEXT_WISHLIST_MOVE; ?>
@@ -49,7 +49,7 @@
 				<?php echo zen_draw_pull_down_menu('sort', $aSortOptions, (isset($_GET['sort']) ? $_GET['sort'] : ''), 'class="m" onchange="this.form.submit()"'); ?>
 			</div>
 		</div>
-		<?php if ( UN_DISPLAY_CATEGORY_FILTER===true ) { ?>
+		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
 			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">

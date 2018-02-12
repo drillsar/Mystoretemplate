@@ -4,7 +4,7 @@ if ( !$_SESSION['customer_id'] ) {
 	zen_redirect(zen_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
-if ( UN_ALLOW_MULTIPLE_WISHLISTS!==true ) {
+if ( ALLOW_MULTIPLE_WISHLISTS!==true ) {
 	zen_redirect(zen_href_link(FILENAME_WISHLIST, '', 'SSL'));
 }
 

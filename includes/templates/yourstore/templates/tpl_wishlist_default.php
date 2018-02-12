@@ -28,7 +28,7 @@
 					<?php echo UN_TEXT_MANAGE_WISHLISTS; ?>
                	</a>
            	</li>
-            <?php if ( UN_ALLOW_MULTIPLE_WISHLISTS ) { ?>
+            <?php if ( ALLOW_MULTIPLE_WISHLISTS ) { ?>
             <li>
             	<a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, 'wid='.$id, 'SSL'); ?>">
 					<?php echo UN_TEXT_WISHLIST_MOVE; ?>
@@ -52,7 +52,7 @@
 				?>
 			</div>
 		</div>
-		<?php if ( UN_DISPLAY_CATEGORY_FILTER===true ) { ?>
+		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
 			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">

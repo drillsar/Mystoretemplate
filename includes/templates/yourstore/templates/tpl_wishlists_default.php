@@ -20,7 +20,7 @@
                     <?php echo UN_TEXT_FIND_WISHLIST; ?>
                 </a>
             </li>
-            <?php if ( UN_ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
+            <?php if ( ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>">
                     <?php echo UN_TEXT_NEW_WISHLIST; ?>

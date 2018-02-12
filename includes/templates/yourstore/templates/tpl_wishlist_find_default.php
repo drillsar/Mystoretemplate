@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	
-		<?php if ( UN_DISPLAY_CATEGORY_FILTER===true ) { ?>
+		<?php if ( DISPLAY_CATEGORY_FILTER===true ) { ?>
 		<div class="multiple">
 			<label for="cPath"><?php echo UN_TEXT_SHOW . UN_LABEL_DELIMITER; ?></label>
 			<div class="select-wrapper">

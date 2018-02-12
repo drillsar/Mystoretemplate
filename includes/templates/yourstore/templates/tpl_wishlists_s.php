@@ -14,7 +14,7 @@ if ( $messageStack->size('wishlists') > 0 ) {
 	<li><a href="<?php echo zen_href_link(FILENAME_WISHLIST_EMAIL, '', 'SSL'); ?>"><?php echo UN_TEXT_EMAIL_WISHLIST; ?></a></li>
 	<li><a href="<?php echo zen_href_link(FILENAME_WISHLIST_FIND, '', 'SSL'); ?>"><?php echo UN_TEXT_FIND_WISHLIST; ?></a></li>
 	<li><a href="<?php echo zen_href_link(FILENAME_WISHLISTS, '', 'SSL'); ?>"><?php echo UN_TEXT_MANAGE_WISHLISTS; ?></a></li>
-	<?php if ( UN_ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
+	<?php if ( ALLOW_MULTIPLE_WISHLISTS===true ) { ?>
 	<li><a href="<?php echo zen_href_link(FILENAME_WISHLIST_EDIT, 'op=add', 'SSL'); ?>"><?php echo UN_TEXT_NEW_WISHLIST; ?></a></li>
 	<li><a href="<?php echo zen_href_link(FILENAME_WISHLIST_MOVE, '', 'SSL'); ?>"><?php echo UN_TEXT_WISHLIST_MOVE; ?></a></li>
 	<?php } ?>
