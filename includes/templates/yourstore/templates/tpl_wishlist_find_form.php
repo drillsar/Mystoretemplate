@@ -23,16 +23,16 @@
 		<h4><?php echo LEGEND_HEADING_TITLE; ?></h4>
 		<div class="group">
             <div class="formrow">
-                <label class="block" for="firstname"><?php echo LEGEND_FORM_FIRSTNAME . UN_LABEL_DELIMITER; ?></label>
+                <label class="block" for="firstname"><?php echo LEGEND_FORM_FIRSTNAME . LABEL_DELIMITER; ?></label>
                 <input type="text" name="firstname" class="l" value="<?php echo isset($_POST['firstname'])? $_POST['firstname'] : ''; ?>" />
             </div>
             <div class="formrow">
-                <label class="block" for="lastname"><?php echo LEGEND_FORM_LASTNAME . UN_LABEL_DELIMITER; ?></label>
+                <label class="block" for="lastname"><?php echo LEGEND_FORM_LASTNAME . LABEL_DELIMITER; ?></label>
                 <input type="text" name="lastname" class="l" value="<?php echo isset($_POST['lastname'])? $_POST['lastname'] : ''; ?>" />
             </div>
         
             <div class="formrow">
-                <label class="block" for="email"><?php echo LEGEND_FORM_EMAIL . UN_LABEL_DELIMITER; ?></label>
+                <label class="block" for="email"><?php echo LEGEND_FORM_EMAIL . LABEL_DELIMITER; ?></label>
                 <input type="text" name="email" class="l" value="<?php echo isset($_POST['email'])? $_POST['email'] : ''; ?>" />
             </div>
         </div> <!-- end group -->
@@ -54,13 +54,13 @@
 				<ul class="simple-list">
 					<?php $location = un_get_citystate($records->fields['entry_city'], $records->fields['entry_state'], 'Unknown'); ?>
 					<?php if ( !un_is_empty($location) ) { ?>
-						<li><?php echo FIND_RESULT_LOCATION . UN_LABEL_DELIMITER; ?>&nbsp;<?php echo $location; ?></li>
+						<li><?php echo FIND_RESULT_LOCATION . LABEL_DELIMITER; ?>&nbsp;<?php echo $location; ?></li>
 					<?php } ?>
 					<?php if ( !un_is_empty($records->fields['name']) ) { ?>
-						<li><?php echo FIND_RESULT_LIST_NAME . UN_LABEL_DELIMITER; ?>&nbsp;<?php echo $records->fields['name']; ?></li>
+						<li><?php echo FIND_RESULT_LIST_NAME . LABEL_DELIMITER; ?>&nbsp;<?php echo $records->fields['name']; ?></li>
 					<?php } ?>
 					<?php if ( !un_is_empty($records->fields['comment']) ) { ?>
-						<li><?php echo FIND_RESULT_LIST_COMMENT . UN_LABEL_DELIMITER; ?>&nbsp;<?php echo $records->fields['comment']; ?></li>
+						<li><?php echo FIND_RESULT_LIST_COMMENT . LABEL_DELIMITER; ?>&nbsp;<?php echo $records->fields['comment']; ?></li>
 					<?php } ?>
 				</ul>
           	</div>

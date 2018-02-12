@@ -430,10 +430,10 @@ INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple lists', 'ALLOW_
 INSERT INTO configuration VALUES (NULL, 'Wishlist display category filter', 'DISPLAY_CATEGORY_FILTER', 'false', 'Set this option true or false to enable a category filter', @configuration_group_id, 13, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
 INSERT INTO configuration VALUES (NULL, 'Wishlist default name', 'DEFAULT_WISHLIST_NAME', 'Default', 'Enter the name you want to be assigned to the initial wishlist.', @configuration_group_id, 14, now(), now(), NULL, NULL);
 INSERT INTO configuration VALUES (NULL, 'Wishlist show list after product addition', 'DISPLAY_WISHLIST', 'false', 'Set this option true or false to show the wishlist after a product was added to the wishlist', @configuration_group_id, 15, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
-INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in extended view', 'UN_MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @configuration_group_id, 16, now(), now(), NULL, NULL);
-INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in compact view', 'UN_MAX_DISPLAY_COMPACT', '20', 'Enter the maximum amount of products you want to show in extended view.<br />default = 20', @configuration_group_id, 17, now(), now(), NULL, NULL);
-INSERT INTO configuration VALUES (NULL, 'Wishlist default view Switch', 'UN_DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', @configuration_group_id, 18, now(), now(), NULL, "zen_cfg_select_option(array('compact', 'extended'),");
-INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple products to cart', 'UN_DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', @configuration_group_id, 19, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in extended view', 'MAX_DISPLAY_EXTENDED', '10', 'Enter the maximum amount of products you want to show in extended view.<br />default = 10', @configuration_group_id, 16, now(), now(), NULL, NULL);
+INSERT INTO configuration VALUES (NULL, 'Wishlist display max items in compact view', 'MAX_DISPLAY_COMPACT', '20', 'Enter the maximum amount of products you want to show in extended view.<br />default = 20', @configuration_group_id, 17, now(), now(), NULL, NULL);
+INSERT INTO configuration VALUES (NULL, 'Wishlist default view Switch', 'DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', @configuration_group_id, 18, now(), now(), NULL, "zen_cfg_select_option(array('compact', 'extended'),");
+INSERT INTO configuration VALUES (NULL, 'Wishlist allow multiple products to cart', 'DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', @configuration_group_id, 19, now(), now(), NULL, "zen_cfg_select_option(array('true', 'false'),");
 
 # Register the configuration page for Admin Access Control
 INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configWishlist','BOX_CONFIGURATION_WISHLIST','FILENAME_CONFIGURATION',CONCAT('gID=',@configuration_group_id),'configuration','Y',@configuration_group_id);
@@ -441,8 +441,8 @@ INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu
 # Register the extras page for Admin Access Control
 INSERT IGNORE INTO admin_pages (`page_key`, `language_key`, `main_page`, `page_params`, `menu_key`, `display_on_menu`, `sort_order`) VALUES ('extrasWishlist', 'BOX_WISHLISTS', 'FILENAME_WISHLISTS', '', 'extras', 'Y', @configuration_group_id);  
 
-DROP TABLE IF EXISTS un_wishlists;
-CREATE TABLE IF NOT EXISTS un_wishlists (
+DROP TABLE IF EXISTS wishlists;
+CREATE TABLE IF NOT EXISTS wishlists (
   id int(11) NOT NULL auto_increment,
   customers_id int(11) NOT NULL default '0',
   created datetime NOT NULL default '0000-00-00 00:00:00',
@@ -453,20 +453,20 @@ CREATE TABLE IF NOT EXISTS un_wishlists (
   public_status tinyint(1) NOT NULL default '1',
   PRIMARY KEY  (id)
 );
-INSERT INTO un_wishlists VALUES (1, 0, now(), now(), 'donotuse', 'donotuse', 0, 0);
+INSERT INTO wishlists VALUES (1, 0, now(), now(), 'donotuse', 'donotuse', 0, 0);
 
 
-DROP TABLE IF EXISTS un_products_to_wishlists;
-CREATE TABLE IF NOT EXISTS un_products_to_wishlists (
+DROP TABLE IF EXISTS products_to_wishlists;
+CREATE TABLE IF NOT EXISTS products_to_wishlists (
   products_id int(11) NOT NULL default '0',
-  un_wishlists_id int(11) NOT NULL default '0',
+  wishlists_id int(11) NOT NULL default '0',
   created datetime NOT NULL default '0000-00-00 00:00:00',
   modified datetime NOT NULL default '0000-00-00 00:00:00',
   quantity int(2) NOT NULL default '1',
   priority int(1) NOT NULL default '2',
   comment varchar(255) default NULL,
   attributes varchar(255) default NULL,
-  PRIMARY KEY  (products_id,un_wishlists_id)
+  PRIMARY KEY  (products_id,wishlists_id)
 );
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Currencies in Header?', 'HEADER_CURRENCIES_DISPLAY', 'True', 'Display the Currencies symbols/links in Header?', 19, 171, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');

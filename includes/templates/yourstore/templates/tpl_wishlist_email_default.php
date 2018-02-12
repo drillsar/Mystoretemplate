@@ -1,7 +1,7 @@
 <div id="wishlist"> <!-- begin wishlist id for styling -->
 	
 	<div class="title-box">
-		<h2 class="title-under text-uppercase text-center"><?php echo HEADING_TITLE . UN_LABEL_DELIMITER . $wishlist->fields['name']; ?></h2>
+		<h2 class="title-under text-uppercase text-center"><?php echo HEADING_TITLE . LABEL_DELIMITER . $wishlist->fields['name']; ?></h2>
 	</div>
 	<div class="alert alert-info alert-dismissable">
 		<button class="close" type="button" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -21,7 +21,7 @@
 		<div class="group">
 			<div class="formrow">
 				<label class="block" for="to_email_address">
-					<?php echo FORM_LABEL_EMAIL . ' <span class="alertrequired">' . UN_TEXT_FORM_FIELD_REQUIRED . '</span>'; ?>
+					<?php echo FORM_LABEL_EMAIL . ' <span class="alertrequired">' . TEXT_FORM_FIELD_REQUIRED . '</span>'; ?>
               	</label>
 				<?php echo zen_draw_input_field('to_email_address', '', 'class="l"'); ?>
 			</div>

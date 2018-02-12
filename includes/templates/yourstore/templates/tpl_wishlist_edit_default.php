@@ -34,7 +34,7 @@
 		<div class="group">
 			<div class="formrow">
 				<label class="block" for="required-name"><?php echo FORM_LABEL_NAME; ?>
-                	<span class="alertrequired"><?php echo UN_TEXT_FORM_FIELD_REQUIRED; ?></span>
+                	<span class="alertrequired"><?php echo TEXT_FORM_FIELD_REQUIRED; ?></span>
                 </label>
 				<input type="text" name="required-name" value="<?php echo $_POST['required-name']? $_POST['required-name']: $records->fields['name']; ?>" class="l" />
 			</div>

@@ -41,7 +41,7 @@ if ( isset($_GET['products_id']) && zen_products_id_valid($_GET['products_id']) 
 if ( $display == true ) {
 	$tpl_module_body = 'tpl_wishlist.php';
 	require($template->get_template_dir($tpl_module_body, DIR_WS_TEMPLATE, $current_page_base, 'sideboxes') . '/' . $tpl_module_body);
-	$title =  UN_BOX_HEADING_WISHLIST;
+	$title =  BOX_HEADING_WISHLIST;
 	if ( SIDEBOX_LINK_HEADER == 'true' ) {
 		$title_link = FILENAME_WISHLIST;
 	} else {

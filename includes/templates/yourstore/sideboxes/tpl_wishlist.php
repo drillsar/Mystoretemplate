@@ -14,17 +14,17 @@ if ( $_SESSION['customer_id'] ) {
 	$content .= zen_draw_hidden_field('action','un_add_wishlist');
 	$content .= zen_draw_hidden_field('products_id', (int)$_GET['products_id']);
 	$content .= '<div align="center">';
-	$content .= zen_image_submit(UN_BUTTON_IMAGE_WISHLIST_ADD, UN_BUTTON_WISHLIST_ADD_ALT);
-	//$content .= '<input type="submit" value="' . UN_BUTTON_WISHLIST_ADD_ALT . '" />';
+	$content .= zen_image_submit(BUTTON_IMAGE_WISHLIST_ADD, BUTTON_WISHLIST_ADD_ALT);
+	//$content .= '<input type="submit" value="' . BUTTON_WISHLIST_ADD_ALT . '" />';
 	$content .= '<br />';
-	$content .= UN_BOX_WISHLIST_ADD_TEXT;
+	$content .= BOX_WISHLIST_ADD_TEXT;
 	$content .= '</div>';
 	$content .= '</form>';
 
 } else {
 
 	$content .= '<div>';
-	$content .= UN_BOX_WISHLIST_LOGIN_TEXT;
+	$content .= BOX_WISHLIST_LOGIN_TEXT;
 	$content .= '</div>';
 
 }
