@@ -11,7 +11,7 @@ if ( $_SESSION['customer_id'] ) {
 	$content .= zen_draw_form('wishlist_sidebox', zen_href_link(FILENAME_WISHLIST, '', 'NONSSL'), 'get');
 	$content .= zen_draw_hidden_field('main_page', FILENAME_WISHLIST);
 	$content .= zen_hide_session_id();
-	$content .= zen_draw_hidden_field('action','un_add_wishlist');
+	$content .= zen_draw_hidden_field('action','add_wishlist');
 	$content .= zen_draw_hidden_field('products_id', (int)$_GET['products_id']);
 	$content .= '<div align="center">';
 	$content .= zen_image_submit(BUTTON_IMAGE_WISHLIST_ADD, BUTTON_WISHLIST_ADD_ALT);

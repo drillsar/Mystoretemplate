@@ -4,7 +4,7 @@ if ( !$_SESSION['customer_id'] ) {
 zen_redirect(zen_href_link(FILENAME_LOGIN, '', 'SSL'));
 }
 
-if ( ALLOW_MULTIPLE_WISHLISTS!==true ) {
+if (ALLOW_MULTIPLE_WISHLISTS!==true) {
 	zen_redirect(zen_href_link(FILENAME_WISHLIST, '', 'SSL'));
 }
 
@@ -17,7 +17,7 @@ $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : '';
 
 // Get wishlist class and instantiate
 require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-$oWishlist = new un_wishlist($_SESSION['customer_id']);
+$oWishlist = new wishlist($_SESSION['customer_id']);
 
 // get wishlist data
 if ( $op=='edit' && !un_is_empty($id) ) {

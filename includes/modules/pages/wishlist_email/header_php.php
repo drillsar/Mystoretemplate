@@ -6,7 +6,7 @@ if ( !$_SESSION['customer_id'] ) {
 
 // Get wishlist class and instantiate
 require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-$oWishlist = new un_wishlist($_SESSION['customer_id']);
+$oWishlist = new wishlist($_SESSION['customer_id']);
 
 // Use specified wishlist if wid set, else use default wishlist
 $id = isset($_REQUEST['wid']) ? (int) $_REQUEST['wid'] : '';

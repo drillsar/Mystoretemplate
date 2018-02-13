@@ -7,7 +7,7 @@
   
   // Instantiate
   $currencies = new currencies();
-	$oWishlist = new un_wishlist();
+	$oWishlist = new wishlist();
   
   // Get wishlist
   $id = (isset($_GET['wid']) ? $_GET['wid'] : '');
