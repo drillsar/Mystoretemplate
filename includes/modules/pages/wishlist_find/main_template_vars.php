@@ -1,7 +1,7 @@
 <?php 
 // Get wishlist class and instantiate
 require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-$oWishlist = new un_wishlist();
+$oWishlist = new wishlist();
 
 $structure = array(
 	array(

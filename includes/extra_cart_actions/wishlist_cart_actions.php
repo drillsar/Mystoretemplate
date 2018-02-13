@@ -32,10 +32,10 @@ switch ($_GET['action']) {
 				//$messageStack->add_session('header', "'".$attributes."'", 'success');
 				// use wishlist class
 				require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-				$oWishlist = new un_wishlist($_SESSION['customer_id']);
+				$oWishlist = new wishlist($_SESSION['customer_id']);
 				$oWishlist->addProduct((int)$_GET['products_id'], $attributes);
 			}
-				if ( DISPLAY_WISHLIST == 'true' ) {
+				if (DISPLAY_WISHLIST == 'true') {
 				zen_redirect(zen_href_link(FILENAME_WISHLIST));
       		} else {
 	      		$messageStack->add_session('header', SUCCESS_ADDED_TO_WISHLIST_PRODUCT, 'success');
@@ -57,11 +57,11 @@ switch ($_GET['action']) {
 
 				// use wishlist class
 				require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-				$oWishlist = new un_wishlist($_SESSION['customer_id']);
+				$oWishlist = new wishlist($_SESSION['customer_id']);
 				$oWishlist->addProduct($_GET['products_id']);
 				
 			}
-			if ( DISPLAY_WISHLIST == 'true' ) {
+			if (DISPLAY_WISHLIST == 'true') {
 				zen_redirect(zen_href_link(FILENAME_WISHLIST));
       		} else {
 	      		$messageStack->add_session('header', SUCCESS_ADDED_TO_WISHLIST_PRODUCT, 'success');
@@ -70,12 +70,12 @@ switch ($_GET['action']) {
 			break;
 
 // Remove item from wishlist
-		case 'un_remove_wishlist':
+		case 'remove_wishlist':
 			if ($_SESSION['customer_id'] && isset($_GET['products_id'])) {
 
 				// use wishlist class
 				require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-				$oWishlist = new un_wishlist($_SESSION['customer_id']);
+				$oWishlist = new wishlist($_SESSION['customer_id']);
 				$oWishlist->removeProduct($_GET['products_id']);
 				
 			}
@@ -83,13 +83,13 @@ switch ($_GET['action']) {
 			break;
 
 // Update wishlist							
-		case 'un_update_wishlist':
+		case 'update_wishlist':
 			$cart_updated = false;
 			for ($i=0; $i<sizeof($_POST['products_id']); $i++) {
 			(is_array($_POST['id']) ? $attributes = serialize( $_POST['id'] ) : $attributes = '');
 				// use wishlist class
 				require_once(DIR_WS_CLASSES . 'wishlist_class.php');
-				$oWishlist = new un_wishlist($_SESSION['customer_id']);
+				$oWishlist = new wishlist($_SESSION['customer_id']);
 				$oWishlist->updateProduct((int)$_POST['products_id'][$i], $attributes, (int)$_POST['wishlist_quantity'][$i], (int)$_POST['priority'][$i], htmlspecialchars($_POST['comment'][$i]));
 				
 				if ( in_array($_POST['products_id'][$i], (is_array($_POST['add_to_cart']) ? $_POST['add_to_cart'] : array())) && $_POST['wishlist_quantity'][$i] != 0 ) {
