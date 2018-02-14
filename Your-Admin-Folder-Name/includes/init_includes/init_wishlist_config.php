@@ -1,5 +1,38 @@
 <?php
-$failed = false;
+/**
+ * Wishlist
+ *
+ * @copyright Copyright 2006-2018 Zen Cart Development Team
+ * @copyright Portions Copyright 2003 osCommerce
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: init_wishlist_config.php 1.0 2/10/2018 tmccaff $
+ */
+
+$sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."wishlists (
+  id int(11) NOT NULL auto_increment,
+  customers_id int(11) NOT NULL default '0',
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  modified datetime NOT NULL default '0000-00-00 00:00:00',
+  name varchar(255) default NULL,
+  comment varchar(255) default NULL,
+  default_status tinyint(1) NOT NULL default '0',
+  public_status tinyint(1) NOT NULL default '1',
+  PRIMARY KEY  (id)
+)";
+    $db->Execute($sql);
+	
+$sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."products_to_wishlists (
+  products_id int(11) NOT NULL default '0',
+  wishlists_id int(11) NOT NULL default '0',
+  created datetime NOT NULL default '0000-00-00 00:00:00',
+  modified datetime NOT NULL default '0000-00-00 00:00:00',
+  quantity int(2) NOT NULL default '1',
+  priority int(1) NOT NULL default '2',
+  comment varchar(255) default NULL,
+  attributes varchar(255) default NULL,
+  PRIMARY KEY  (products_id,wishlists_id)
+)";
+    $db->Execute($sql);
 
 $wishlist_menu_title = 'Wishlist Configuration';
 $wishlist_menu_text = 'Set Wishlist Options';

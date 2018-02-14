@@ -408,32 +408,6 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Languages in Header?', 'HEADER_LANGUAGES_DISPLAY', 'True', 'Display the Languages flags/links in Header?', 19, 170, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');
 
-DROP TABLE IF EXISTS wishlists;
-CREATE TABLE IF NOT EXISTS wishlists (
-  id int(11) NOT NULL auto_increment,
-  customers_id int(11) NOT NULL default '0',
-  created datetime NOT NULL default '0000-00-00 00:00:00',
-  modified datetime NOT NULL default '0000-00-00 00:00:00',
-  name varchar(255) default NULL,
-  comment varchar(255) default NULL,
-  default_status tinyint(1) NOT NULL default '0',
-  public_status tinyint(1) NOT NULL default '1',
-  PRIMARY KEY  (id)
-);
-
-DROP TABLE IF EXISTS products_to_wishlists;
-CREATE TABLE IF NOT EXISTS products_to_wishlists (
-  products_id int(11) NOT NULL default '0',
-  wishlists_id int(11) NOT NULL default '0',
-  created datetime NOT NULL default '0000-00-00 00:00:00',
-  modified datetime NOT NULL default '0000-00-00 00:00:00',
-  quantity int(2) NOT NULL default '1',
-  priority int(1) NOT NULL default '2',
-  comment varchar(255) default NULL,
-  attributes varchar(255) default NULL,
-  PRIMARY KEY  (products_id,wishlists_id)
-);
-
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Currencies in Header?', 'HEADER_CURRENCIES_DISPLAY', 'True', 'Display the Currencies symbols/links in Header?', 19, 171, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');
 
 SELECT @cgi:=configuration_group_id
