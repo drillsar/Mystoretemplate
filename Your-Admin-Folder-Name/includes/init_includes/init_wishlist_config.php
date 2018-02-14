@@ -63,7 +63,7 @@ if(!$result->EOF) {
   $db->Execute($sql);
   $sql = "INSERT INTO ".DB_PREFIX."configuration(configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist default view Switch', 'DEFAULT_LIST_VIEW', 'extended', 'Set the default view of the list to compact or extended view', '".$wishlist_configuration_id."', 90, NOW(), NOW(), NULL, NULL)";
   $db->Execute($sql);
-  $sql = "INSERT INTO ".DB_PREFIX."configuration(configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES (''Wishlist allow multiple products to cart', 'DB_ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', '".$wishlist_configuration_id."', 60, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(''true'', ''false''),')";
+  $sql = "INSERT INTO ".DB_PREFIX."configuration(configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Wishlist allow multiple products to cart', 'ALLOW_MULTIPLE_PRODUCTS_CART_COMPACT', 'false', 'Set this option true or false to allow multiple products to be moved in the cart via checkboxes in compact view', '".$wishlist_configuration_id."', 60, NOW(), NOW(), NULL, 'zen_cfg_select_option(array(''true'', ''false''),')";
   $db->Execute($sql);
 }
 else {
@@ -73,7 +73,7 @@ else {
 
 // Add support for admin profiles to edit configuration and orders
 if(function_exists('zen_register_admin_page')) {
-	if(!zen_page_key_exists('configDynamicPriceUpdater')) {
+	if(!zen_page_key_exists('configWishlist')) {
 		// Get the sort order
 		$page_sort_query = "SELECT MAX(sort_order) as max_sort FROM `". TABLE_ADMIN_PAGES ."` WHERE menu_key='configuration'";
 		$page_sort = $db->Execute($page_sort_query);
