@@ -53,27 +53,7 @@ pzen_create_table_sql();
 if(isset($_POST['frm_pzen_set_submit']))
 	{
 		unset($_POST['frm_pzen_set_submit']);
-		if(isset($_POST['news_id']) || isset($_POST['news_image'])) {
-			global $db;
-			$news_ids = explode("-",zen_db_prepare_input($_POST['news_id']));
-			$news_id=$news_ids[0];
-			$lang_id=$news_ids[1];
-			$news_image = $_FILES['news_image']['name'];
-			$news_image_tmp = $_FILES['news_image']['tmp_name'];
-			
-			if(($news_image != NULL)) {
-				$time=time();
-				$flext = pathinfo($news_image, PATHINFO_EXTENSION);
-				$fnl=str_replace('.'.$flext,'',$news_image);
-				$news_image= $fnl.'_'.$time.".".$flext;
-				$news_image_update = "UPDATE " . TABLE_BOX_NEWS_CONTENT . " SET news_image='$news_image' where box_news_id='$news_id' and languages_id='$lang_id' ";
-				$news_image_update_result = $db->Execute($news_image_update);
-				move_uploaded_file($news_image_tmp,pzen_temp_dir('temp_dir').'/images/news/'. $news_image);
-			}
-			unset($_POST['news_id']);
-			unset($_POST['news_image']);
-			unset($_FILES['news_image']);
-		}
+	
 		foreach($_POST as $k=>$v){
 			if(is_array($v)){
 				foreach($v as $k1=>$v1){
@@ -113,7 +93,6 @@ if(isset($_POST['frm_pzen_set_submit']))
 				<li><a href="#view14"><?php echo PZEN_TABS_BOTTOMBANNERS; ?></a></li>
 				<li><a href="#view20"><?php echo PZEN_TABS_SIDEBARBANNERS; ?></a></li>
 				<li><a href="#view15"><?php echo PZEN_TABS_INDEXPAGE; ?></a></li>
-				<li><a href="#view16"><?php echo PZEN_TABS_NEWSBOX; ?></a></li>
 				<li><a href="#view19"><?php echo PZEN_TABS_PRODUCTLISTING; ?></a></li>
 				<li><a href="#view18"><?php echo PZEN_TABS_PRODUCTINFO; ?></a></li>
             </ul> 
