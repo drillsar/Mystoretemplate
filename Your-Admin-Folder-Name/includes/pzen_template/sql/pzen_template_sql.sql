@@ -376,10 +376,6 @@ UPDATE configuration set configuration_value='' where configuration_key='USU_FIL
 
 UPDATE configuration set configuration_value='true' where configuration_key='DPU_STATUS';
 
-UPDATE configuration set configuration_value='4' where configuration_key='NEWS_BOX_SHOW_CENTERBOX';
-UPDATE configuration set configuration_value='4' where configuration_key='NEWS_BOX_SHOW_NEWS';
-UPDATE configuration set configuration_value='130' where configuration_key='NEWS_BOX_CONTENT_LENGTH_CENTERBOX';
-
 UPDATE configuration set configuration_value='130' where configuration_key='DEFINE_TESTIMONIAL_STATUS';
 UPDATE configuration set configuration_value='170' where configuration_key='TESTIMONIAL_IMAGE_HEIGHT';
 UPDATE configuration set configuration_value='0' where configuration_key='TESTIMONIAL_IMAGE_WIDTH';
