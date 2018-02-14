@@ -250,7 +250,6 @@ UPDATE template_select set template_dir='yourstore';
 INSERT INTO layout_boxes (layout_template, layout_box_name, layout_box_status, layout_box_location, layout_box_sort_order ) VALUES 
 ('yourstore', 'categories_css.php', '1', '1', '0'),
 ('yourstore', 'best_sellers.php', '1', '1', '1'),
-('yourstore', 'news_box_sidebox.php', '1', '1', '2'),
 ('yourstore', 'whats_new.php', '1', '1', '5'),
 ('yourstore', 'featured.php', '1', '1', '6'),
 ('yourstore', 'testimonials_manager.php', '1', '1', '7'),
