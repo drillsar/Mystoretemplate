@@ -1,6 +1,6 @@
 <?php
 // use $configuration_group_id where needed
-// DELETE FROM `configuration_group` WHERE `configuration_group_title` = 'ZX AJAX Cart Lightbox';
+// DELETE FROM `configuration_group` WHERE `configuration_group_title` = 'ZX AJAX Cart';
 // delete old config group id
 $db->Execute("DELETE FROM ".TABLE_CONFIGURATION_GROUP." WHERE `configuration_group_title` = 'ZX AJAX Cart'");
 

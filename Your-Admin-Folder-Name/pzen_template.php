@@ -891,7 +891,8 @@ if(isset($_POST['frm_pzen_set_submit']))
 								$categories->MoveNext();
 							}
 						?>
-						<?php foreach($cat_array[0] as $k0=>$v0){ ?>
+						
+						<?php foreach($cat_array as $k0=>$v0){ ?>
 							<section class="block">
 								<header class="block-header">
 									<h2 class="title"><?php echo $v0['name']; ?></h2>
@@ -947,6 +948,7 @@ if(isset($_POST['frm_pzen_set_submit']))
 											</div>
 										</div>
 									</div>
+									<?php } ?>
 									<div class="row">
 										<label><?php echo PZEN_LABEL_MEGAMENU_BOTTOM_BLOCK; ?></label>
 										<div class="cont">
@@ -995,8 +997,7 @@ if(isset($_POST['frm_pzen_set_submit']))
 										</div>
 									</div>
 							</section>
-						<?php } ?>
-						</div>
+						    </div>
 						<input type="hidden" name="frm_pzen_set_submit" value="" />
 					</form>
                 </div>

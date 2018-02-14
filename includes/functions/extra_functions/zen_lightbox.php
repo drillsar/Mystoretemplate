@@ -36,4 +36,3 @@ function zen_lightbox($src, $alt = '', $width = '', $height = '', $parameters = 
 
   return $image;
 }
-?>
