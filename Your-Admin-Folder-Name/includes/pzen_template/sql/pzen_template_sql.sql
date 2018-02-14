@@ -405,30 +405,6 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('Show Currencies in Header?', 'HEADER_CURRENCIES_DISPLAY', 'True', 'Display the Currencies symbols/links in Header?', 19, 171, NULL, now(), NULL, 'zen_cfg_select_option(array(\'True\', \'False\'), ');
 
-SELECT @ZXconfig:=configuration_group_id
-FROM configuration_group
-WHERE configuration_group_title= 'ZX AJAX Cart'
-LIMIT 1;
-DELETE FROM configuration WHERE configuration_group_id = @ZXconfig AND configuration_group_id != 0;
-DELETE FROM configuration_group WHERE configuration_group_id = @ZXconfig AND configuration_group_id != 0;
-INSERT INTO configuration_group (configuration_group_id, configuration_group_title, configuration_group_description, sort_order, visible) VALUES (NULL, 'ZX AJAX Cart', 'ZX AJAX Add to Cart', '1', '1');
-SET @ZXconfig=last_insert_id();
-UPDATE configuration_group SET sort_order = @ZXconfig WHERE configuration_group_id = @ZXconfig;
-INSERT INTO configuration (configuration_id, configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES 
-(NULL, 'ZX AJAX Cart', 'ZX_AJAX_CART_STATUS', 'true', 'Activate ZX AJAX Add to Cart', @ZXconfig, 10, NOW(), NULL, 'zen_cfg_select_option(array(\'true\', \'false\'),'),
-(NULL, 'Use jQuery', 'ZX_AJAX_CART_JQUERY', 'false', 'If your template is already utilizing jQuery, keep this disabled. If you are not loading jQuery, please set to true.', @ZXconfig, 20, NOW(), NULL, 'zen_cfg_select_option(array(\'false\', \'true\'),'),
-(NULL, 'Show Close Cart button', 'ZX_AJAX_CART_CLOSE_BUTTON', 'false', 'Do you want to show the Close Cart button in the slider?', @ZXconfig, 25, NOW(), NULL, 'zen_cfg_select_option(array(\'false\', \'true\'),'),
-(NULL, ' Effect', 'ZX_AJAX_CART_FADE_DELAY', '6000', 'How long is the popup shown before it fades out (in miliseconds)', @ZXconfig, 30, NOW(), NULL, NULL),
-(NULL, 'ZX AJAX Add to Cart Version', 'ZX_AJAX_CART_VERSION', '1.1', 'Currently using: <strong>v1.1</strong><br />Module brought to you by <a href="http://www.zenexpert.com" target="_blank">ZenExpert</a>', @ZXconfig, 50, NOW(), NULL, 'zen_cfg_select_option(array(\'1.1\'),');
-
-DELETE FROM admin_pages WHERE page_key = 'configZXAjaxCart';
-INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configZXAjaxCart','BOX_CONFIGURATION_ZX_AJAX_CART','FILENAME_CONFIGURATION',CONCAT('gID=',@ZXconfig),'configuration','Y',@ZXconfig);
-
-
-DELETE FROM admin_pages WHERE page_key = 'configZXAjaxCart';
-INSERT IGNORE INTO admin_pages (page_key,language_key,main_page,page_params,menu_key,display_on_menu,sort_order) VALUES ('configZXAjaxCart','BOX_CONFIGURATION_ZX_AJAX_CART','FILENAME_CONFIGURATION',CONCAT('gID=',@ZXconfig),'configuration','Y',@ZXconfig);
-
-
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Max Products to Compare', 'COMPARE_VALUE_COUNT', '4', 'The number of products to compare at one time. Set 0 to disable.', '19', '300', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Max Products to Compare', 'COMPARE_DESCRIPTION', '300', 'How many characters max to show of the products description.', '19', '151', now());
 
