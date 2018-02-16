@@ -43,8 +43,6 @@ define('FILENAME_DEFINE_MAIN_LAYER_SLIDESHOW', 'define_main_layer_slideshow.php'
 define('FILENAME_PZEN_RANDOM_PRODUCTS', 'pzen_random_products.php');
 define('FILENAME_DEFINE_MAINTENANCE', 'pzen_maintenance.php');
 define('FILENAME_DEFINE_CATEGORIES_PROMOS', 'define_categories_promos.php');
-define('FILENAME_ORDER_STATUS', 'order_status');
-define('FILENAME_RETURNS', 'returns');
 define('FILENAME_ORDER_PROCESSING', 'order_processing');
 define('FILENAME_PAYMENT_PROCESSING', 'payment_processing');
 ?>
