@@ -30,8 +30,8 @@
             </li>
         <?php } ?>
 			<li>
-				<a href="<?php echo zen_href_link(FILENAME_ACCOUNT, '', 'SSL'); ?>">
-					<?php echo FOOTER_TITLE_ACCOUNT; ?>
+				<a href="<?php echo zen_href_link(FILENAME_LOGIN, '', 'SSL'); ?>">
+					<?php echo HEADER_TITLE_ACCOUNT; ?>
 				</a>
 			</li>			
 		</ul>

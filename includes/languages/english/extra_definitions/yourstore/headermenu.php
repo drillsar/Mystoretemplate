@@ -28,8 +28,7 @@ define('HEADER_TITLE_FEATURED_PRODUCTS','Featured');
 define('HEADER_TITLE_SEARCH','Search');
 
 define('HEADER_TITLE_CATEGORIES','Shop');
-define('HEADER_TITLE_EZPAGES','Ez-Pages');
-define('HEADER_TITLE_MANUFACTURER','Brands');
+define('HEADER_TITLE_EZPAGES','Quick Links');
 define('HEADER_TITLE_INFORMATION','Information');
 define('HEADER_TITLE_SHIPPING_INFO','Shipping Info');
 define('HEADER_TITLE_PRIVACY_POLICY','Privacy Policy');
@@ -39,18 +38,16 @@ define('HEADER_TITLE_SITE_MAP','Site Map');
 define('HEADER_TITLE_GV_FAQ','Gift Certificate FAQ');
 define('HEADER_TITLE_DISCOUNT_COUPON','Discount Coupons');
 define('HEADER_TITLE_UNSUBSCRIBE','Newsletter Unsubscribe');
+define('HEADER_TITLE_ORDER_PROCESSING','Order Processing');
+define('HEADER_TITLE_ORDER_STATUS','Order Status');
+define('HEADER_TITLE_PAYMENT_PROCESSING','Payment Processing');
+define('HEADER_TITLE_RETURNS','Warranty & Returns');
 
 define('HEADER_TITLE_LOGIN','Login');
 define('HEADER_TITLE_LOGOFF','Logout');
 
 define('HEADER_TITLE_CONTACT_US','Contact Us');
 
-//define('HEADER_TITLE_LOGIN', 'Log In');  defined in includes/languages/english/apple_zen/header.php
-// define('HEADER_TITLE_CREATE_ACCOUNT','Register'); defined in includes/languages/english/apple_zen/header.php
 define('HEADER_TITLE_NEWSLETTERS','Newsletters');
 define('HEADER_TITLE_LANGUAGE','Language');
 define('HEADER_TITLE_CURRENCY','Currency');
-
-//define('HEADER_TITLE_CART_CONTENTS', 'Shopping Cart'); defined in includes/languages/english/apple_zen/header.php
-
-?>

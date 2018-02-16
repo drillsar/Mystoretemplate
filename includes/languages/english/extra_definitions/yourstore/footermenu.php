@@ -18,14 +18,7 @@
 // +----------------------------------------------------------------------+
 // $Id: footermenu.php
 
-define('FOOTER_TITLE_INFORMATIONS','INFORMATIONS');
-define('FOOTER_TITLE_MY_ACCOUNT','MY ACCOUNT');
-define('FOOTER_TITLE_CUSTOMER_CARE','CUSTOMER CARE');
+define('FOOTER_TITLE_INFORMATION','INFORMATION');
+define('FOOTER_TITLE_CUSTOMER_SERVICE','CUSTOMER SERVICE');
+define('FOOTER_TITLE_IMPORTANT_LINKS','IMPORTANT LINKS');
 define('FOOTER_TITLE_GET_IN_TOUCH','GET IN TOUCH');
-
-define('FOOTER_TITLE_ORDER_HISTORY','Order History');
-define('FOOTER_TITLE_CHANGE_PASSWORD','Change Password');
-define('FOOTER_TITLE_CREATE_ACCOUNT','Create Account');
-define('FOOTER_TITLE_BRANDS_ALL','Brands');
-
-?>

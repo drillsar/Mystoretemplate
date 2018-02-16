@@ -1,13 +1,13 @@
 <h4 class="text-left  title-under  mobile-collapse__title"><?php echo FOOTER_TITLE_INFORMATION; ?></h4>
 <div class="v-links-list mobile-collapse__content">
     <ul>
-	 <?php if (MODULE_WISHLISTS_ENABLED) { ?>
-			<li>
-				<a href="<?php echo zen_href_link(wishlist, '', 'SSL'); ?>">
-					<?php echo HEADER_TITLE_WISHLIST; ?>
-				</a>
-			</li>
-			<?php } ?>
+	<?php if (DEFINE_ABOUT_US_STATUS <= 1) { ?>
+            <li>
+                <a href="<?php echo zen_href_link(FILENAME_ABOUT_US, '', 'SSL'); ?>">
+                    <?php echo HEADER_TITLE_ABOUT_US; ?>
+                </a>
+            </li>
+        <?php } ?>
 		<?php if (DEFINE_SITE_MAP_STATUS <= 1) { ?>
             <li>
                 <a href="<?php echo zen_href_link(FILENAME_SITE_MAP, '', 'SSL'); ?>">
