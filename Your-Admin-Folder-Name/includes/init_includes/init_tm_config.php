@@ -8,7 +8,7 @@
  * @version $Id: init_tm_config.php 2.3.3b 7/12/2014 mc12345678 $
  */
 
-//$messageStack->add('Testimonials Manager v1.5.5 install started','success');
+//$messageStack->add('Testimonials Manager v1.5.4 install started','success');
 
 $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
   testimonials_id int(11) NOT NULL auto_increment,
@@ -130,7 +130,7 @@ $sql = "CREATE TABLE IF NOT EXISTS ".DB_PREFIX."testimonials_manager (
 	};
     }
 
-       $messageStack->add('Testimonials Manager v1.5.5 install completed!','success');
+       $messageStack->add('Testimonials Manager v1.5.4 install completed!','success');
 
     // find next sort order in admin_pages table
     $sql = "SELECT (MAX(sort_order)+2) as sort FROM ".TABLE_ADMIN_PAGES;
